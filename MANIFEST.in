@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include sampat_industries *.css
+recursive-include sampat_industries *.csv
+recursive-include sampat_industries *.html
+recursive-include sampat_industries *.ico
+recursive-include sampat_industries *.js
+recursive-include sampat_industries *.json
+recursive-include sampat_industries *.md
+recursive-include sampat_industries *.png
+recursive-include sampat_industries *.py
+recursive-include sampat_industries *.svg
+recursive-include sampat_industries *.txt
+recursive-exclude sampat_industries *.pyc
