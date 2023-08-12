@@ -215,3 +215,7 @@ app_license = "sampatindustries"
 # auth_hooks = [
 #	"sampat_industries.auth.validate"
 # ]
+
+fixtures = [
+    "Custom Field"
+]
