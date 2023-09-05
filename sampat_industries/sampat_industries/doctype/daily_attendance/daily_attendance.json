@@ -1,0 +1,87 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{DD}-{MM}-{YYYY}-{#####}",
+ "creation": "2023-09-01 15:50:20.514041",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "company",
+  "column_break_ndh8z",
+  "holiday",
+  "holiday_reason",
+  "section_break_ncil9",
+  "daily_attendance_child"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "daily_attendance_child",
+   "fieldtype": "Table",
+   "label": "Daily Attendance Child",
+   "options": "Daily Attendance Child"
+  },
+  {
+   "fieldname": "column_break_ndh8z",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "No",
+   "fieldname": "holiday",
+   "fieldtype": "Select",
+   "label": "Holiday?",
+   "options": "Yes\nNo"
+  },
+  {
+   "fieldname": "holiday_reason",
+   "fieldtype": "Data",
+   "label": "Holiday Reason"
+  },
+  {
+   "fieldname": "section_break_ncil9",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-09-05 10:17:00.144717",
+ "modified_by": "Administrator",
+ "module": "Sampat Industries",
+ "name": "Daily Attendance",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1
+}
