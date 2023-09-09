@@ -15,7 +15,9 @@
   "login_checkinid",
   "logout_checkinid",
   "absent",
-  "approved"
+  "approved",
+  "attendance_id",
+  "total_hrs"
  ],
  "fields": [
   {
@@ -45,7 +47,6 @@
    "columns": 1,
    "fieldname": "comment",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "Comment"
   },
   {
@@ -85,12 +86,24 @@
    "fieldtype": "Check",
    "in_list_view": 1,
    "label": "Approved?"
+  },
+  {
+   "fieldname": "attendance_id",
+   "fieldtype": "Data",
+   "label": "Attendance Id"
+  },
+  {
+   "columns": 1,
+   "fieldname": "total_hrs",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Total Hrs"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-09-05 17:06:19.756368",
+ "modified": "2023-09-09 17:03:42.553470",
  "modified_by": "Administrator",
  "module": "Sampat Industries",
  "name": "Daily Attendance Child",

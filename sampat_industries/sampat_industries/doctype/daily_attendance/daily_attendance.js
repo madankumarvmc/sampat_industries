@@ -18,8 +18,16 @@ frappe.ui.form.on('Daily Attendance', {
 					let entry = frm.add_child("daily_attendance_child");
 					entry.employee = e.name;
 					entry.employee_name = e.employee_name;
-					entry.in_time = e.LOG_IN
-					entry.out_time = e.LOG_OUT
+					// entry.in_time = e.LOG_IN
+					// entry.out_time = e.LOG_OUT
+					if (e.LOG_IN){
+						entry.in_time = "<span style='color:green'>" + e.LOG_IN + "</span>";
+
+					}
+					if (e.LOG_OUT){
+						entry.out_time = "<span style='color:green'>" + e.LOG_OUT + "</span>";
+
+					}
 				})
 				refresh_field("daily_attendance_child");
 				})
@@ -34,6 +42,7 @@ frappe.ui.form.on('Daily Attendance', {
 				frm.set_value('date', frappe.datetime.get_today() );
 
 			}
+
 			// frm.set_value('company', null);
 			// console.log(frm.doc)
 
@@ -47,8 +56,16 @@ frappe.ui.form.on('Daily Attendance', {
 					let entry = frm.add_child("daily_attendance_child");
 					entry.employee = e.name;
 					entry.employee_name = e.employee_name;
-					entry.in_time = e.LOG_IN
-					entry.out_time = e.LOG_OUT
+					// entry.in_time = e.LOG_IN;
+					// entry.out_time = e.LOG_OUT;
+					if (e.LOG_IN){
+						entry.in_time = "<span style='color:green'>" + e.LOG_IN + "</span>";
+
+					}
+					if (e.LOG_OUT){
+						entry.out_time = "<span style='color:green'>" + e.LOG_OUT + "</span>";
+
+					}
 				})
 				refresh_field("daily_attendance_child");
 				})
@@ -68,10 +85,18 @@ frappe.ui.form.on('Daily Attendance', {
 				// console.log(e.LOG_IN)
 				entry.employee = e.name;
 				entry.employee_name = e.employee_name;
-				entry.in_time = e.LOG_IN
-				entry.out_time = e.LOG_OUT
+				// entry.in_time = e.LOG_IN
+				// entry.out_time = e.LOG_OUT
 				entry.login_checkinid = e.login_checkinid
 				entry.logout_checkinid = e.logout_checkinid
+				if (e.LOG_IN){
+					entry.in_time = "<span style='color:green'>" + e.LOG_IN + "</span>";
+
+				}
+				if (e.LOG_OUT){
+					entry.out_time = "<span style='color:green'>" + e.LOG_OUT + "</span>";
+
+				}
 			})
 			refresh_field("daily_attendance_child");
 			})
@@ -158,8 +183,16 @@ frappe.ui.form.on('Daily Attendance', {
 					let entry = frm.add_child("daily_attendance_child");
 					entry.employee = e.name;
 					entry.employee_name = e.employee_name;
-					entry.in_time = e.LOG_IN
-					entry.out_time = e.LOG_OUT
+					// entry.in_time = e.LOG_IN
+					// entry.out_time = e.LOG_OUT
+					if (e.LOG_IN){
+						entry.in_time = "<span style='color:green'>" + e.LOG_IN + "</span>";
+
+					}
+					if (e.LOG_OUT){
+						entry.out_time = "<span style='color:green'>" + e.LOG_OUT + "</span>";
+
+					}
 				})
 				refresh_field("daily_attendance_child");
 				})
