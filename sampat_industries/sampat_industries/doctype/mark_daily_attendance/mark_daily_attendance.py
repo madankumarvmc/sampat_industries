@@ -57,7 +57,7 @@ def add_to_employee_checkin(employee, time, login_type, date):
      
 
 @frappe.whitelist()
-def add_to_attendance(employee, date, company, status, leave_type):
+def add_to_attendance(employee, date, company, status):
     # if attendance_id is None:
         # frappe.msgprint(attendance_id)
         a_doc = frappe.new_doc("Attendance")
@@ -67,7 +67,7 @@ def add_to_attendance(employee, date, company, status, leave_type):
         a_doc.company = company
         a_doc.status = status
         if status == "On Leave":
-            a_doc.leave_type = leave_type
+            a_doc.leave_type = "Casual Leave"
         
         a_doc.insert(ignore_permissions=True)
         # frappe.msgprint("Attendance Updated")
