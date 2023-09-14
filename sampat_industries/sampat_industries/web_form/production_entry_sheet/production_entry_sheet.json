@@ -1,0 +1,220 @@
+{
+ "allow_comments": 0,
+ "allow_delete": 0,
+ "allow_edit": 1,
+ "allow_incomplete": 0,
+ "allow_multiple": 0,
+ "allow_print": 1,
+ "anonymous": 0,
+ "apply_document_permissions": 1,
+ "button_label": "Save",
+ "creation": "2023-09-13 00:52:33.990578",
+ "doc_type": "Job Card",
+ "docstatus": 0,
+ "doctype": "Web Form",
+ "idx": 0,
+ "is_standard": 1,
+ "list_columns": [
+  {
+   "fieldname": "work_order",
+   "fieldtype": "Link",
+   "label": "Work Order"
+  },
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Read Only",
+   "label": "Item Name"
+  },
+  {
+   "fieldname": "workstation",
+   "fieldtype": "Link",
+   "label": "Workstation"
+  },
+  {
+   "fieldname": "for_quantity",
+   "fieldtype": "Float",
+   "label": "Qty To Manufacture"
+  },
+  {
+   "fieldname": "total_completed_qty",
+   "fieldtype": "Float",
+   "label": "Total Completed Qty"
+  },
+  {
+   "fieldname": "process_loss_qty",
+   "fieldtype": "Float",
+   "label": "Process Loss Qty"
+  }
+ ],
+ "list_title": "Production Entry",
+ "login_required": 1,
+ "max_attachment_size": 0,
+ "modified": "2023-09-13 12:04:36.850496",
+ "modified_by": "niraj@sampat.co.in",
+ "module": "Sampat Industries",
+ "name": "production-entry-sheet",
+ "owner": "niraj@sampat.co.in",
+ "published": 1,
+ "route": "production-entry-sheet",
+ "show_attachments": 0,
+ "show_list": 1,
+ "show_sidebar": 0,
+ "title": "Production Entry Sheet",
+ "web_form_fields": [
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "work_order",
+   "fieldtype": "Link",
+   "hidden": 0,
+   "label": "Work Order",
+   "max_length": 0,
+   "max_value": 0,
+   "options": "Work Order",
+   "read_only": 0,
+   "reqd": 1,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "production_item",
+   "fieldtype": "Link",
+   "hidden": 0,
+   "label": "Production Item",
+   "max_length": 0,
+   "max_value": 0,
+   "options": "Item",
+   "read_only": 1,
+   "reqd": 0,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "for_quantity",
+   "fieldtype": "Float",
+   "hidden": 0,
+   "label": "Qty To Manufacture",
+   "max_length": 0,
+   "max_value": 0,
+   "read_only": 0,
+   "reqd": 0,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "",
+   "fieldtype": "Column Break",
+   "hidden": 0,
+   "label": "",
+   "max_length": 0,
+   "max_value": 0,
+   "options": "",
+   "read_only": 0,
+   "reqd": 0,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "operation",
+   "fieldtype": "Link",
+   "hidden": 0,
+   "label": "Operation",
+   "max_length": 0,
+   "max_value": 0,
+   "options": "Operation",
+   "read_only": 0,
+   "reqd": 1,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "workstation",
+   "fieldtype": "Link",
+   "hidden": 0,
+   "label": "Workstation",
+   "max_length": 0,
+   "max_value": 0,
+   "options": "Workstation",
+   "read_only": 0,
+   "reqd": 1,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "",
+   "fieldtype": "Section Break",
+   "hidden": 0,
+   "label": "Machine Details",
+   "max_length": 0,
+   "max_value": 0,
+   "options": "",
+   "read_only": 0,
+   "reqd": 0,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "time_logs",
+   "fieldtype": "Table",
+   "hidden": 0,
+   "label": "Time Logs",
+   "max_length": 0,
+   "max_value": 0,
+   "options": "Job Card Time Log",
+   "read_only": 0,
+   "reqd": 0,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "",
+   "fieldtype": "Section Break",
+   "hidden": 0,
+   "label": "",
+   "max_length": 0,
+   "max_value": 0,
+   "options": "",
+   "read_only": 0,
+   "reqd": 0,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "default": "0",
+   "fieldname": "total_completed_qty",
+   "fieldtype": "Float",
+   "hidden": 0,
+   "label": "Total Completed Qty",
+   "max_length": 0,
+   "max_value": 0,
+   "read_only": 1,
+   "reqd": 0,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "",
+   "fieldtype": "Column Break",
+   "hidden": 0,
+   "label": "",
+   "max_length": 0,
+   "max_value": 0,
+   "options": "",
+   "read_only": 0,
+   "reqd": 0,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "process_loss_qty",
+   "fieldtype": "Float",
+   "hidden": 0,
+   "label": "Process Loss Qty",
+   "max_length": 0,
+   "max_value": 0,
+   "read_only": 1,
+   "reqd": 0,
+   "show_in_filter": 0
+  }
+ ],
+ "website_sidebar": ""
+}

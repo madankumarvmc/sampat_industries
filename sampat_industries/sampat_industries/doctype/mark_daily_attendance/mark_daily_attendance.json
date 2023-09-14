@@ -64,7 +64,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-09-07 08:54:49.083768",
+ "modified": "2023-09-11 14:45:51.477149",
  "modified_by": "Administrator",
  "module": "Sampat Industries",
  "name": "Mark Daily Attendance",
@@ -88,6 +88,16 @@
    "print": 1,
    "read": 1,
    "role": "Manufacturing Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Stock User",
    "share": 1,
    "write": 1
   }

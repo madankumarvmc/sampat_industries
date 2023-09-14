@@ -28,19 +28,37 @@ frappe.ui.form.on('Mark Daily Attendance', {
 	validate: function(frm) {
 		let data = frm.doc.daily_attendance_child;
 	
-		function updateEmployeeCheckin(employee, time, loginType, checkinid, date) {
+		// function updateEmployeeCheckin(employee, time, loginType, checkinid, date) {
+		// 	frappe.call({
+		// 		method: "sampat_industries.sampat_industries.doctype.mark_daily_attendance.mark_daily_attendance.update_to_employee_checkin",
+		// 		args: { employee, time, login_type: loginType, checkinid, date }
+		// 	}).done(() => {
+		// 		refresh_field("daily_attendance_child");
+		// 	});
+		// }
+	
+		// function addEmployeeCheckin(employee, time, loginType, checkinid, date) {
+		// 	frappe.call({
+		// 		method: "sampat_industries.sampat_industries.doctype.mark_daily_attendance.mark_daily_attendance.add_to_employee_checkin",
+		// 		args: { employee, time, login_type: loginType, checkinid, date }
+		// 	}).done(() => {
+		// 		refresh_field("daily_attendance_child");
+		// 	});
+		// }
+
+		function addEmployeeCheckinArrayFunction(addEmployeeCheckinArray) {
 			frappe.call({
-				method: "sampat_industries.sampat_industries.doctype.mark_daily_attendance.mark_daily_attendance.update_to_employee_checkin",
-				args: { employee, time, login_type: loginType, checkinid, date }
+				method: "sampat_industries.sampat_industries.doctype.mark_daily_attendance.mark_daily_attendance.add_to_employee_checkin",
+				args: { addEmployeeCheckinArray }
 			}).done(() => {
 				refresh_field("daily_attendance_child");
 			});
 		}
-	
-		function addEmployeeCheckin(employee, time, loginType, checkinid, date) {
+
+		function updateEmployeeCheckinArrayFunction(updateEmployeeCheckinArray) {
 			frappe.call({
-				method: "sampat_industries.sampat_industries.doctype.mark_daily_attendance.mark_daily_attendance.add_to_employee_checkin",
-				args: { employee, time, login_type: loginType, checkinid, date }
+				method: "sampat_industries.sampat_industries.doctype.mark_daily_attendance.mark_daily_attendance.update_to_employee_checkin",
+				args: { updateEmployeeCheckinArray }
 			}).done(() => {
 				refresh_field("daily_attendance_child");
 			});
@@ -56,15 +74,28 @@ frappe.ui.form.on('Mark Daily Attendance', {
 				// Handle the response if needed
 			});
 		}
+		
+		let updateEmployeeCheckinArray = []
+		let addEmployeeCheckinArray = []
+
+		function pushUpdateEmployeeCheckinfunction(employee, time, loginType, checkinid, date) {
+			updateEmployeeCheckinArray.push({ "employee": employee, "time": time, "loginType" : loginType, "checkinid" :checkinid, "date": date });
+		}
 	
+		function pushAddEmployeeCheckinFunction(employee, time, loginType, checkinid, date) {
+			addEmployeeCheckinArray.push({"employee": employee, "time": time, "loginType" : loginType, "checkinid" :checkinid, "date": date});
+		}
+
 		data.forEach(e => {
 			if (e.in_time) {
 				const time = Date.parse(frm.doc.date + "T" + e.in_time);
-	
+				
 				if (e.login_checkinid) {
-					updateEmployeeCheckin(e.employee, e.in_time, "IN", e.login_checkinid, frm.doc.date);
+					// updateEmployeeCheckin(e.employee, e.in_time, "IN", e.login_checkinid, frm.doc.date);
+					pushUpdateEmployeeCheckinfunction(e.employee, e.in_time, "IN", e.login_checkinid, frm.doc.date)
 				} else {
-					addEmployeeCheckin(e.employee, e.in_time, "IN", e.login_checkinid, frm.doc.date);
+					// addEmployeeCheckin(e.employee, e.in_time, "IN", e.login_checkinid, frm.doc.date);
+					pushAddEmployeeCheckinFunction(e.employee, e.in_time, "IN", e.login_checkinid, frm.doc.date)
 				}
 			}
 	
@@ -72,9 +103,11 @@ frappe.ui.form.on('Mark Daily Attendance', {
 				const time = Date.parse(frm.doc.date + "T" + e.out_time);
 	
 				if (e.logout_checkinid) {
-					updateEmployeeCheckin(e.employee, e.out_time, "OUT", e.logout_checkinid, frm.doc.date);
+					// updateEmployeeCheckin(e.employee, e.out_time, "OUT", e.logout_checkinid, frm.doc.date);
+					pushUpdateEmployeeCheckinfunction(e.employee, e.out_time, "OUT", e.logout_checkinid, frm.doc.date)
 				} else {
-					addEmployeeCheckin(e.employee, e.out_time, "OUT", e.logout_checkinid, frm.doc.date);
+					// addEmployeeCheckin(e.employee, e.out_time, "OUT", e.logout_checkinid, frm.doc.date);
+					pushAddEmployeeCheckinFunction(e.employee, e.out_time, "OUT", e.logout_checkinid, frm.doc.date)
 				}
 			}
 
@@ -91,8 +124,13 @@ frappe.ui.form.on('Mark Daily Attendance', {
 				} else if (e.in_time == null && e.absent == "1" && e.approved == "1" && e.attendance_id == null) {
 					// Mark On Leave
 					markAttendance(e.employee, frm.doc.date, frm.doc.company, "On Leave");
+				} else if (e.attendance_id !== null && e.in_time == null && e.absent == null) {
+					frappe.msgprint({
+						title: __("Attendance Already Marked. \n Wait while document is saved. \n Ask the administrator to edit attendance sheet for these employees"),
+						message: __(`Attendance Already marked for ${e.employee}`)
+					});
 				} else {
-					// Do Nothing
+
 				}
 
 
@@ -130,7 +168,77 @@ frappe.ui.form.on('Mark Daily Attendance', {
 			
 		});
 
+		console.log(addEmployeeCheckinArray)
+		console.log(updateEmployeeCheckinArray)
+
+		if (addEmployeeCheckinArray.length > 0){
+			addEmployeeCheckinArrayFunction(addEmployeeCheckinArray)
+		}
+		if (updateEmployeeCheckinArray.length > 0){
+			updateEmployeeCheckinArrayFunction(updateEmployeeCheckinArray)
+		}
+
+
 	},
+
+
+	// validate: function(frm) {
+	// 	let data = frm.doc.daily_attendance_child;
+	
+	// 	let updateBatch = [];
+	// 	let addBatch = [];
+	
+	// 	function addToUpdateBatch(employee, time, loginType, checkinid, date) {
+	// 		updateBatch.push({ employee, time, loginType, checkinid, date });
+	// 	}
+	
+	// 	function addToAddBatch(employee, time, loginType, date) {
+	// 		addBatch.push({ employee, time, loginType, date });
+	// 	}
+	
+	// 	data.forEach(e => {
+	// 		if (e.in_time) {
+	// 			const time = Date.parse(frm.doc.date + "T" + e.in_time);
+	
+	// 			if (e.login_checkinid) {
+	// 				addToUpdateBatch(e.employee, e.in_time, "IN", e.login_checkinid, frm.doc.date);
+	// 			} else {
+	// 				addToAddBatch(e.employee, e.in_time, "IN", frm.doc.date);
+	// 			}
+	// 		}
+	
+	// 		if (e.out_time) {
+	// 			const time = Date.parse(frm.doc.date + "T" + e.out_time);
+	
+	// 			if (e.logout_checkinid) {
+	// 				addToUpdateBatch(e.employee, e.out_time, "OUT", e.logout_checkinid, frm.doc.date);
+	// 			} else {
+	// 				addToAddBatch(e.employee, e.out_time, "OUT", frm.doc.date);
+	// 			}
+	// 		}
+	// 	});
+	
+	// 	// Batch update calls
+	// 	if (updateBatch.length > 0) {
+	// 		frappe.call({
+	// 			method: "sampat_industries.sampat_industries.doctype.mark_daily_attendance.mark_daily_attendance.update_to_employee_checkin_batch",
+	// 			args: { batch: updateBatch }
+	// 		}).done(() => {
+	// 			refresh_field("daily_attendance_child");
+	// 		});
+	// 	}
+	
+	// 	// Batch add calls
+	// 	if (addBatch.length > 0) {
+	// 		frappe.call({
+	// 			method: "sampat_industries.sampat_industries.doctype.mark_daily_attendance.mark_daily_attendance.add_to_employee_checkin_batch",
+	// 			args: { batch: addBatch }
+	// 		}).done(() => {
+	// 			refresh_field("daily_attendance_child");
+	// 		});
+	// 	}
+	// }
+	
 
 
 	// onload: (frm) => {
@@ -148,13 +256,19 @@ frappe.ui.form.on('Mark Daily Attendance', {
 
 
 frappe.ui.form.on('Daily Attendance Child', {
+	refresh: function(frm, cdt, cdn) {
+		
+	},
+
     in_time: function (frm, cdt, cdn) {
         calculateTotalHrs(frm, cdt, cdn);
     },
+
     out_time: function (frm, cdt, cdn) {
         calculateTotalHrs(frm, cdt, cdn);
     },
 });
+
 
 
 function setDefaultDate(frm) {
@@ -186,10 +300,19 @@ function fetchEmployeeAttendance(frm) {
 			entry.login_checkinid = e.login_checkinid
 			entry.logout_checkinid = e.logout_checkinid
 			entry.attendance_id = e.attendance_id
-			entry.total_hrs = updateTotalHrs(e.LOG_IN, e.LOG_OUT)
+			let total_hrs_toupdate = updateTotalHrs(e.LOG_IN, e.LOG_OUT)
+			let total_hrs = parseInt(total_hrs_toupdate, 10);
+			if (total_hrs <= 0) {
+				console.log(total_hrs_toupdate)
+				entry.total_hrs = "<span style='color:red'>" + total_hrs_toupdate + "</span>";
+			} else if ( 0 < total_hrs && total_hrs <= 4) {
+				entry.total_hrs = "<span style='color:orange'>" + total_hrs_toupdate + "</span>";
+			} else {
+				entry.total_hrs = total_hrs_toupdate
+			}
 
 			if (e.attendance == "Present") {
-				// entry.absent = "0"
+				entry.present = "1"
 			} else if (e.attendance == "Absent") {
 				entry.absent = "1"
 			} else if (e.attendance == "On Leave") {

@@ -14,10 +14,11 @@
   "comment_",
   "login_checkinid",
   "logout_checkinid",
+  "total_hrs",
   "absent",
   "approved",
   "attendance_id",
-  "total_hrs"
+  "present"
  ],
  "fields": [
   {
@@ -30,7 +31,7 @@
    "reqd": 1
   },
   {
-   "columns": 3,
+   "columns": 2,
    "fieldname": "employee_name",
    "fieldtype": "Read Only",
    "in_list_view": 1,
@@ -44,7 +45,6 @@
    "label": "In Time"
   },
   {
-   "columns": 1,
    "fieldname": "comment",
    "fieldtype": "Data",
    "label": "Comment"
@@ -89,8 +89,9 @@
   },
   {
    "fieldname": "attendance_id",
-   "fieldtype": "Data",
-   "label": "Attendance Id"
+   "fieldtype": "Link",
+   "label": "Attendance Id",
+   "options": "Attendance"
   },
   {
    "columns": 1,
@@ -98,12 +99,21 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Total Hrs"
+  },
+  {
+   "columns": 1,
+   "default": "0",
+   "fieldname": "present",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Present?",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-09-09 17:03:42.553470",
+ "modified": "2023-09-11 16:52:19.302379",
  "modified_by": "Administrator",
  "module": "Sampat Industries",
  "name": "Daily Attendance Child",
