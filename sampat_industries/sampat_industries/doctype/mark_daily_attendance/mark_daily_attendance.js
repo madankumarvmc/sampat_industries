@@ -27,24 +27,6 @@ frappe.ui.form.on('Mark Daily Attendance', {
 
 	validate: function(frm) {
 		let data = frm.doc.daily_attendance_child;
-	
-		// function updateEmployeeCheckin(employee, time, loginType, checkinid, date) {
-		// 	frappe.call({
-		// 		method: "sampat_industries.sampat_industries.doctype.mark_daily_attendance.mark_daily_attendance.update_to_employee_checkin",
-		// 		args: { employee, time, login_type: loginType, checkinid, date }
-		// 	}).done(() => {
-		// 		refresh_field("daily_attendance_child");
-		// 	});
-		// }
-	
-		// function addEmployeeCheckin(employee, time, loginType, checkinid, date) {
-		// 	frappe.call({
-		// 		method: "sampat_industries.sampat_industries.doctype.mark_daily_attendance.mark_daily_attendance.add_to_employee_checkin",
-		// 		args: { employee, time, login_type: loginType, checkinid, date }
-		// 	}).done(() => {
-		// 		refresh_field("daily_attendance_child");
-		// 	});
-		// }
 
 		function addEmployeeCheckinArrayFunction(addEmployeeCheckinArray) {
 			frappe.call({
@@ -73,6 +55,37 @@ frappe.ui.form.on('Mark Daily Attendance', {
 			}).done((r) => {
 				// Handle the response if needed
 			});
+		}
+
+		function addEmployeeAdvance(employee, date, advanceAmt) {
+			frappe.call({
+				method: "sampat_industries.sampat_industries.doctype.mark_daily_attendance.mark_daily_attendance.add_to_employee_advance",
+				args: { employee, date, advanceAmt },
+			}).done((r) => {
+				// Handle the response if needed
+			});
+		}
+
+		function deleteEmployeeCheckinDoc(absent, login_checkinid, logout_checkinid) {
+			if (absent == "1" && (login_checkinid != null || logout_checkinid != null) ) {
+				// Delete Employee Checkin Entry
+				if (login_checkinid != null) {
+					frappe.call({
+						method: "sampat_industries.sampat_industries.doctype.mark_daily_attendance.mark_daily_attendance.delete_from_employee_checkin",
+						args: { checkin_id : login_checkinid },
+					}).done((r) => {
+						refresh_field("daily_attendance_child");
+					});
+				} 
+				if (logout_checkinid != null) {
+					frappe.call({
+						method: "sampat_industries.sampat_industries.doctype.mark_daily_attendance.mark_daily_attendance.delete_from_employee_checkin",
+						args: { checkin_id : logout_checkinid },
+					}).done((r) => {
+						refresh_field("daily_attendance_child");
+					});
+				}
+			}
 		}
 		
 		let updateEmployeeCheckinArray = []
@@ -111,7 +124,9 @@ frappe.ui.form.on('Mark Daily Attendance', {
 				}
 			}
 
-			// console.log(e.absent , e.approved, e.attendance_id)
+			// delete doc from employye checkin
+
+			deleteEmployeeCheckinDoc(e.absent, e.login_checkinid, e.logout_checkinid)
 
 			// Check conditions and mark attendance
 			if (e.attendance_id == null && e.in_time !== null) {
@@ -132,44 +147,12 @@ frappe.ui.form.on('Mark Daily Attendance', {
 				} else {
 
 				}
-
-
-			// if (e.in_time !== null && e.attendance_id == null ) {
-			// 	// console.log("Mark Present")
-			// 	// Mark Present in Attendance Doctype
-			// 	frappe.call({
-			// 		method: "sampat_industries.sampat_industries.doctype.mark_daily_attendance.mark_daily_attendance.add_to_attendance",
-			// 		args: {employee: e.employee, date: frm.doc.date, company: frm.doc.company, status: "Present", leave_type: "Casual Leave" }
-			// 	}).done((r) => {
-
-			// 		})
-			// } else if(e.in_time == null && e.absent == "1" && e.approved == "0" && e.attendance_id == null) {
-			// 	// Mark Absent
-			// 	// console.log("Mark Absent")
-			// 	frappe.call({
-			// 		method: "sampat_industries.sampat_industries.doctype.mark_daily_attendance.mark_daily_attendance.add_to_attendance",
-			// 		args: {employee: e.employee, date: frm.doc.date, company: frm.doc.company, status: "Absent", leave_type: "Casual Leave" }
-			// 	}).done((r) => {
-
-			// 		})
-
-			// } else if (e.in_time == null && e.absent == "1" && e.approved == "1" && e.attendance_id == null) {
-			// 	// Mark On Leave
-			// 	// console.log("Mark On Leave")
-			// 	frappe.call({
-			// 		method: "sampat_industries.sampat_industries.doctype.mark_daily_attendance.mark_daily_attendance.add_to_attendance",
-			// 		args: {employee: e.employee, date: frm.doc.date, company: frm.doc.company, status: "On Leave", leave_type: "Casual Leave" }
-			// 	}).done((r) => {
-
-			// 		})
-			// } else {
-			// 	// console.log("Do Nothing")
-			// }
 			
-		});
 
-		console.log(addEmployeeCheckinArray)
-		console.log(updateEmployeeCheckinArray)
+			if (e.advance_amt) {
+				addEmployeeAdvance(e.employee , frm.doc.date, e.advance_amt)
+			}
+		});
 
 		if (addEmployeeCheckinArray.length > 0){
 			addEmployeeCheckinArrayFunction(addEmployeeCheckinArray)
@@ -180,77 +163,6 @@ frappe.ui.form.on('Mark Daily Attendance', {
 
 
 	},
-
-
-	// validate: function(frm) {
-	// 	let data = frm.doc.daily_attendance_child;
-	
-	// 	let updateBatch = [];
-	// 	let addBatch = [];
-	
-	// 	function addToUpdateBatch(employee, time, loginType, checkinid, date) {
-	// 		updateBatch.push({ employee, time, loginType, checkinid, date });
-	// 	}
-	
-	// 	function addToAddBatch(employee, time, loginType, date) {
-	// 		addBatch.push({ employee, time, loginType, date });
-	// 	}
-	
-	// 	data.forEach(e => {
-	// 		if (e.in_time) {
-	// 			const time = Date.parse(frm.doc.date + "T" + e.in_time);
-	
-	// 			if (e.login_checkinid) {
-	// 				addToUpdateBatch(e.employee, e.in_time, "IN", e.login_checkinid, frm.doc.date);
-	// 			} else {
-	// 				addToAddBatch(e.employee, e.in_time, "IN", frm.doc.date);
-	// 			}
-	// 		}
-	
-	// 		if (e.out_time) {
-	// 			const time = Date.parse(frm.doc.date + "T" + e.out_time);
-	
-	// 			if (e.logout_checkinid) {
-	// 				addToUpdateBatch(e.employee, e.out_time, "OUT", e.logout_checkinid, frm.doc.date);
-	// 			} else {
-	// 				addToAddBatch(e.employee, e.out_time, "OUT", frm.doc.date);
-	// 			}
-	// 		}
-	// 	});
-	
-	// 	// Batch update calls
-	// 	if (updateBatch.length > 0) {
-	// 		frappe.call({
-	// 			method: "sampat_industries.sampat_industries.doctype.mark_daily_attendance.mark_daily_attendance.update_to_employee_checkin_batch",
-	// 			args: { batch: updateBatch }
-	// 		}).done(() => {
-	// 			refresh_field("daily_attendance_child");
-	// 		});
-	// 	}
-	
-	// 	// Batch add calls
-	// 	if (addBatch.length > 0) {
-	// 		frappe.call({
-	// 			method: "sampat_industries.sampat_industries.doctype.mark_daily_attendance.mark_daily_attendance.add_to_employee_checkin_batch",
-	// 			args: { batch: addBatch }
-	// 		}).done(() => {
-	// 			refresh_field("daily_attendance_child");
-	// 		});
-	// 	}
-	// }
-	
-
-
-	// onload: (frm) => {
-	// 	let dailyAttendanceChild = frm.doc.daily_attendance_child;
-	// 	dailyAttendanceChild.forEach((row) => {
-	// 		console.log({row})
-	// 		row.total_hrs = updateTotalHrs(row.in_time, row.out_time)
-	// 		console.log(row.total_hrs)
-	// 	})
-	// 	// frm.refresh_field('total_hrs');
-	// },
-
 
 });
 
@@ -293,8 +205,14 @@ function fetchEmployeeAttendance(frm) {
 		$.each(r.message, function(_i,e) {
 			// console.log("printing!!!!!" + e.attendance)
 			let entry = frm.add_child("daily_attendance_child");
-			entry.employee = e.name;
-			entry.employee_name = e.employee_name;
+			if (e.attendance == "Absent"){
+				entry.employee = "<span style='color:red'>" + e.name + "</span>";
+				entry.employee_name = "<span style='color:red'>" + e.employee_name + "</span>";
+			} else {
+				entry.employee = e.name;
+				entry.employee_name = e.employee_name;
+			}
+			
 			entry.in_time = e.LOG_IN
 			entry.out_time = e.LOG_OUT
 			entry.login_checkinid = e.login_checkinid
@@ -305,7 +223,7 @@ function fetchEmployeeAttendance(frm) {
 			if (total_hrs <= 0) {
 				console.log(total_hrs_toupdate)
 				entry.total_hrs = "<span style='color:red'>" + total_hrs_toupdate + "</span>";
-			} else if ( 0 < total_hrs && total_hrs <= 4) {
+			} else if ( 0 < total_hrs && total_hrs <= 5) {
 				entry.total_hrs = "<span style='color:orange'>" + total_hrs_toupdate + "</span>";
 			} else {
 				entry.total_hrs = total_hrs_toupdate
@@ -357,6 +275,9 @@ function updateTotalHrs(in_time, out_time) {
 		return totalHrs;
     }
 }
+
+
+
 
 
 

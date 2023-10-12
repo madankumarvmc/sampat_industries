@@ -106,7 +106,8 @@ def update_to_employee_checkin(updateEmployeeCheckinArray):
                 ec_doc.time = date_1 + " " + time_1
             
             ec_doc.save(ignore_permissions=True)
-            # frappe.msgprint("Employee Checkin Updated")
+        
+        frappe.msgprint("Employee Attendance Successfully Added and Updated")
 
         
 @frappe.whitelist()
@@ -117,7 +118,7 @@ def add_to_employee_checkin(addEmployeeCheckinArray):
     
     for x in  result :
         
-        frappe.msgprint(x["employee"])
+        # frappe.msgprint(x["employee"])
        
         employee_1 = x["employee"]
         login_type_1 = x["loginType"]
@@ -135,7 +136,28 @@ def add_to_employee_checkin(addEmployeeCheckinArray):
         ec_doc.insert(ignore_permissions=True)
     # frappe.msgprint("Employee Checkin Inserted")
     
+    frappe.msgprint("Employee Attendance Successfully Added and Updated")
+    
+@frappe.whitelist()
+def delete_from_employee_checkin(checkin_id):
+    
+    frappe.delete_doc ("Employee Checkin", checkin_id )
     
     
     
     
+@frappe.whitelist()
+def add_to_employee_advance(employee, date, advanceAmt):
+    # if attendance_id is None:
+        # frappe.msgprint(attendance_id)
+        a_doc = frappe.new_doc("Employee Advance")
+        
+        a_doc.employee = employee
+        a_doc.posting_date = date
+        a_doc.purpose = "self"
+        a_doc.advance_account = "Cash - SI"
+        a_doc.currency = "INR"
+        a_doc.advance_amount = advanceAmt
+        
+        a_doc.insert(ignore_permissions=True)
+        frappe.msgprint("Employee Advance Successfully Added")

@@ -31,6 +31,11 @@
    "label": "Workstation"
   },
   {
+   "fieldname": "sequence_id",
+   "fieldtype": "Int",
+   "label": "Sequence Id"
+  },
+  {
    "fieldname": "for_quantity",
    "fieldtype": "Float",
    "label": "Qty To Manufacture"
@@ -49,8 +54,8 @@
  "list_title": "Production Entry",
  "login_required": 1,
  "max_attachment_size": 0,
- "modified": "2023-09-13 12:04:36.850496",
- "modified_by": "niraj@sampat.co.in",
+ "modified": "2023-09-15 15:18:24.424973",
+ "modified_by": "Administrator",
  "module": "Sampat Industries",
  "name": "production-entry-sheet",
  "owner": "niraj@sampat.co.in",

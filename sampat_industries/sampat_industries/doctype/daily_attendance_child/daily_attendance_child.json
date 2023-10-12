@@ -12,13 +12,14 @@
   "comment",
   "out_time",
   "comment_",
-  "login_checkinid",
-  "logout_checkinid",
   "total_hrs",
   "absent",
   "approved",
+  "present",
+  "login_checkinid",
+  "logout_checkinid",
   "attendance_id",
-  "present"
+  "advance_amt"
  ],
  "fields": [
   {
@@ -64,11 +65,13 @@
   {
    "fieldname": "login_checkinid",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Login CheckinID"
   },
   {
    "fieldname": "logout_checkinid",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Logout CheckinID"
   },
   {
@@ -90,6 +93,7 @@
   {
    "fieldname": "attendance_id",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Attendance Id",
    "options": "Attendance"
   },
@@ -98,7 +102,8 @@
    "fieldname": "total_hrs",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Total Hrs"
+   "label": "Total Hrs",
+   "read_only": 1
   },
   {
    "columns": 1,
@@ -108,12 +113,17 @@
    "in_list_view": 1,
    "label": "Present?",
    "read_only": 1
+  },
+  {
+   "fieldname": "advance_amt",
+   "fieldtype": "Data",
+   "label": "Advance Amt."
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-09-11 16:52:19.302379",
+ "modified": "2023-09-18 12:09:08.394884",
  "modified_by": "Administrator",
  "module": "Sampat Industries",
  "name": "Daily Attendance Child",

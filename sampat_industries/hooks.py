@@ -36,7 +36,9 @@ app_license = "sampatindustries"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {
+    "Salary Slip" : "public/js/doctype_plugin/salary_slip/salary_slip.js",
+    }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -57,6 +59,13 @@ app_license = "sampatindustries"
 
 # automatically create page for each record of this doctype
 # website_generators = ["Web Page"]
+
+
+has_website_permission = {
+	"Job Card": "erpnext.controllers.website_list_for_contact.has_website_permission"
+}
+
+
 
 # Jinja
 # ----------
