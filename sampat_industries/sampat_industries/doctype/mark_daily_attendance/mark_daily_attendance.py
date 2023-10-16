@@ -70,7 +70,7 @@ def add_to_attendance(employee, date, company, status):
         a_doc.company = company
         a_doc.status = status
         if status == "On Leave":
-            a_doc.leave_type = "Casual Leave"
+            a_doc.leave_type = "Leave Without Pay"
         
         a_doc.insert(ignore_permissions=True)
         # frappe.msgprint("Attendance Updated")
