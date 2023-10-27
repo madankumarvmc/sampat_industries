@@ -1,0 +1,90 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-10-24 20:06:06.594296",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "start_date",
+  "end_date",
+  "column_break_5dqce",
+  "working_days",
+  "holidays",
+  "section_break_28usv",
+  "employee_salary_sheet",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date"
+  },
+  {
+   "fieldname": "column_break_5dqce",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "working_days",
+   "fieldtype": "Data",
+   "label": "Working Days"
+  },
+  {
+   "fieldname": "holidays",
+   "fieldtype": "Data",
+   "label": "Holidays"
+  },
+  {
+   "fieldname": "section_break_28usv",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "employee_salary_sheet",
+   "fieldtype": "Table",
+   "label": "Employee Salary Sheet",
+   "options": "Employee Salary Sheet"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Generate Salaries",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-10-24 20:07:40.594330",
+ "modified_by": "Administrator",
+ "module": "Sampat Industries",
+ "name": "Generate Salaries",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

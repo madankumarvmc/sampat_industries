@@ -19,7 +19,12 @@ def get_all_employees(company):
 @frappe.whitelist()
 def get_employees_checkin(date,company):
     
-    return frappe.db.sql(f"""SELECT e.name,e.employee_name,TIME(ci.time) LOG_IN,ci.name login_checkinid, TIME(co.time) LOG_OUT,co.name logout_checkinid, ma.status attendance, ma.name attendance_id FROM `tabEmployee` e LEFT OUTER JOIN `tabEmployee Checkin` ci on e.name=ci.employee and ci.log_type='IN' and DATE(ci.time)=STR_TO_DATE('{date}','%Y-%m-%d') LEFT OUTER JOIN `tabEmployee Checkin` co on e.name = co.employee and co.log_type = 'OUT' and DATE(co.time)=STR_TO_DATE('{date}','%Y-%m-%d') LEFT OUTER JOIN `tabAttendance` ma on e.name = ma.employee and ma.docstatus != 2 and ma.attendance_date = STR_TO_DATE('{date}','%Y-%m-%d') where e.company = '{company}' """, as_dict=True)
+    return frappe.db.sql(f"""SELECT e.name,e.employee_name,TIME(ci.time) LOG_IN,ci.name login_checkinid, TIME(co.time) LOG_OUT,co.name logout_checkinid, ma.status attendance, ma.name attendance_id 
+            FROM `tabEmployee` e 
+            LEFT OUTER JOIN `tabEmployee Checkin` ci ON e.name=ci.employee AND ci.log_type='IN' AND DATE(ci.time)=STR_TO_DATE('{date}','%Y-%m-%d') 
+            LEFT OUTER JOIN `tabEmployee Checkin` co ON e.name = co.employee AND co.log_type = 'OUT' AND DATE(co.time)=STR_TO_DATE('{date}','%Y-%m-%d') 
+            LEFT OUTER JOIN `tabAttendance` ma ON e.name = ma.employee AND ma.docstatus != 2 and ma.attendance_date = STR_TO_DATE('{date}','%Y-%m-%d') 
+            WHERE e.company = '{company}' """, as_dict=True)
 
 	# return y
 

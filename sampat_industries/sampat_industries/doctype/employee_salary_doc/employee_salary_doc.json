@@ -1,0 +1,222 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-10-24 18:24:36.803000",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employee",
+  "employee_name",
+  "total_days",
+  "holidays",
+  "column_break_msclj",
+  "start_date",
+  "end_date",
+  "leave_days",
+  "absent_days_unapproved",
+  "employee_salary_details_section",
+  "monthly_base_salary",
+  "pf_deduction_salary",
+  "column_break_ku79c",
+  "daily_duty_hours",
+  "holiday_duty_hours",
+  "employee_type",
+  "section_break_7vvud",
+  "payment_days",
+  "regular_work_days",
+  "column_break_zuvp4",
+  "total_work_hours",
+  "regular_work_hours",
+  "holiday_work_hours",
+  "salary_details_section",
+  "earnings",
+  "gross_earnings",
+  "column_break_cdoov",
+  "deductions",
+  "total_deductions",
+  "net_salary"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "employee.first_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Read Only",
+   "in_global_search": 1,
+   "label": "Employee Name"
+  },
+  {
+   "fieldname": "column_break_msclj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date"
+  },
+  {
+   "fieldname": "total_days",
+   "fieldtype": "Data",
+   "label": "Total Days"
+  },
+  {
+   "fieldname": "holidays",
+   "fieldtype": "Data",
+   "label": "Holidays"
+  },
+  {
+   "fieldname": "leave_days",
+   "fieldtype": "Data",
+   "label": "Leave Days"
+  },
+  {
+   "fieldname": "absent_days_unapproved",
+   "fieldtype": "Data",
+   "label": "Absent Days (Unapproved)"
+  },
+  {
+   "fieldname": "section_break_7vvud",
+   "fieldtype": "Section Break",
+   "label": "Attendance Deatils"
+  },
+  {
+   "fieldname": "payment_days",
+   "fieldtype": "Data",
+   "label": "Payment Days"
+  },
+  {
+   "fieldname": "regular_work_days",
+   "fieldtype": "Data",
+   "label": "Regular Work Days"
+  },
+  {
+   "fieldname": "column_break_zuvp4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_work_hours",
+   "fieldtype": "Data",
+   "label": "Total Work Hours"
+  },
+  {
+   "fieldname": "regular_work_hours",
+   "fieldtype": "Data",
+   "label": "Regular Work Hours"
+  },
+  {
+   "fieldname": "holiday_work_hours",
+   "fieldtype": "Data",
+   "label": "Holiday Work Hours"
+  },
+  {
+   "fieldname": "salary_details_section",
+   "fieldtype": "Section Break",
+   "label": "Salary Details"
+  },
+  {
+   "fieldname": "earnings",
+   "fieldtype": "Table",
+   "label": "Earnings",
+   "options": "Salary Earnings"
+  },
+  {
+   "fieldname": "gross_earnings",
+   "fieldtype": "Data",
+   "label": "Gross Earnings"
+  },
+  {
+   "fieldname": "column_break_cdoov",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "deductions",
+   "fieldtype": "Table",
+   "label": "Deductions",
+   "options": "Salary Deductions"
+  },
+  {
+   "fieldname": "total_deductions",
+   "fieldtype": "Data",
+   "label": "Total Deductions"
+  },
+  {
+   "fieldname": "net_salary",
+   "fieldtype": "Data",
+   "label": "Net Salary"
+  },
+  {
+   "fieldname": "employee_salary_details_section",
+   "fieldtype": "Section Break",
+   "label": "Employee Salary Details"
+  },
+  {
+   "fieldname": "monthly_base_salary",
+   "fieldtype": "Data",
+   "label": "Monthly Base Salary"
+  },
+  {
+   "fieldname": "pf_deduction_salary",
+   "fieldtype": "Data",
+   "label": "PF Deduction Salary"
+  },
+  {
+   "fieldname": "column_break_ku79c",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "daily_duty_hours",
+   "fieldtype": "Data",
+   "label": "Daily Duty Hours"
+  },
+  {
+   "fieldname": "holiday_duty_hours",
+   "fieldtype": "Data",
+   "label": "Holiday Duty Hours"
+  },
+  {
+   "fieldname": "employee_type",
+   "fieldtype": "Data",
+   "label": "Employee Type"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-10-24 20:24:15.125799",
+ "modified_by": "Administrator",
+ "module": "Sampat Industries",
+ "name": "Employee Salary Doc",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
