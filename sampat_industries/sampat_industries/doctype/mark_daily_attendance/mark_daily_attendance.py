@@ -24,7 +24,7 @@ def get_employees_checkin(date,company):
             LEFT OUTER JOIN `tabEmployee Checkin` ci ON e.name=ci.employee AND ci.log_type='IN' AND DATE(ci.time)=STR_TO_DATE('{date}','%Y-%m-%d') 
             LEFT OUTER JOIN `tabEmployee Checkin` co ON e.name = co.employee AND co.log_type = 'OUT' AND DATE(co.time)=STR_TO_DATE('{date}','%Y-%m-%d') 
             LEFT OUTER JOIN `tabAttendance` ma ON e.name = ma.employee AND ma.docstatus != 2 and ma.attendance_date = STR_TO_DATE('{date}','%Y-%m-%d') 
-            WHERE e.company = '{company}' """, as_dict=True)
+            WHERE e.company = '{company}' AND e.status = 'Active' """, as_dict=True)
 
 	# return y
 

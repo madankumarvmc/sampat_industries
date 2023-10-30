@@ -17,7 +17,7 @@ def get_working_hours(start_date, end_date):
     result = frappe.db.sql(f"""
         SELECT  
 
-        e.employee, e.employee_type, a.attendance_date, TIME(ci.time) in_time, TIME(co.time) out_time, DATE(ci.time) date, a.status attendance_status, a.docstatus, ht.parentfield holiday_status,
+        e.employee, e.employee_type, e.esi_number_ AS esi_number, e.pf_number, a.attendance_date, TIME(ci.time) in_time, TIME(co.time) out_time, DATE(ci.time) date, a.status attendance_status, a.docstatus, ht.parentfield holiday_status,
         e.monthly_basic_pay, e.regular_duty_hours, e.holiday_duty_hours, e.pf_salary 
 
         FROM `tabEmployee` e 
