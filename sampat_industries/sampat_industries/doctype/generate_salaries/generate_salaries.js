@@ -19,9 +19,15 @@ async function getAllEmployees(frm) {
   let start_date = frm.doc.start_date;
   let end_date = frm.doc.end_date;
 
+  console.log("HELLO!!!!");
+
   // CALCULATE TOTAL SALARY DAYS
   let date1 = new Date(frm.doc.start_date);
   let date2 = new Date(frm.doc.end_date);
+
+  let start_date_weekday = date1.getDay();
+  console.log("WEEKDAY !!!!!! " + start_date_weekday);
+  console.log(date1.getDate());
 
   var time_difference = date2.getTime() - date1.getTime();
   //calculate days difference by dividing total milliseconds in a day
@@ -30,6 +36,17 @@ async function getAllEmployees(frm) {
 
   // Initialize Employee Salary Array
   let employeeSalaryArray = [];
+
+  // // Weeks Absentism Calculation
+  // let weeks_array = []
+  // let month_date_number = 0
+  // for(i=start_date_weekday; i<=6 ; i++){
+
+  //   month_date_number += 1
+  //   if(month_date_number == date2.getDate()){
+  //     break;
+  //   }
+  // }
 
   let regular_day_work_hours = 0;
   let fixed_employee_deficit_hours = 0;
@@ -41,11 +58,16 @@ async function getAllEmployees(frm) {
   let absent_days = 0;
   let leave_days = 0;
 
-  let holiday_days = 0;
-  holiday_days = await getHolidayDetails(start_date, end_date);
+  let get_holiday_details = await getHolidayDetails(start_date, end_date);
+  let unit1_holiday_days = get_holiday_details.unit1_number_of_holidays;
+  let unit2_holiday_days = get_holiday_details.unit2_number_of_holidays;
+  let unit1_holidays_dates = get_holiday_details.unit1_holidays_date_array;
+  let unit2_holidays_dates = get_holiday_details.unit2_holidays_date_array;
+
+  console.log("Unit-1 Holidays" + unit1_holidays_dates);
+  console.log("Unit-2 Holidays" + unit2_holidays_dates);
 
   frm.set_value("working_days", total_salary_days);
-  frm.set_value("holidays", holiday_days);
 
   frappe
     .call({
@@ -58,10 +80,12 @@ async function getAllEmployees(frm) {
 
       // Create temporary employee
       let temp_employee = r.message[0].employee;
+      let temp_employee_name = r.message[0].employee_name;
       let temp_regular_duty_hours = r.message[0].regular_duty_hours;
       let temp_employee_type = r.message[0].employee_type;
       let temp_esi_number = r.message[0].esi_number;
       let temp_pf_number = r.message[0].pf_number;
+      let temp_employee_joining_date = r.message[0].date_of_joining;
 
       let monthly_basic_salary = r.message[0].monthly_basic_pay;
 
@@ -87,6 +111,8 @@ async function getAllEmployees(frm) {
               temp_esi_number +
               "\n Employee PF Number " +
               temp_pf_number +
+              "\n Employee Joining Date" +
+              temp_employee_joining_date +
               "\n Regular Day Duty Hours" +
               temp_regular_duty_hours +
               "\n Regular Day Work Hours  " +
@@ -97,8 +123,10 @@ async function getAllEmployees(frm) {
               holiday_work_hours +
               "\n Lunch Hours" +
               lunch_hours +
-              "\n Holiday Days  " +
-              holiday_days +
+              "\n Unit-1 Holiday Days  " +
+              unit1_holiday_days +
+              "\n Unit-2 Holiday Days  " +
+              unit2_holiday_days +
               "\n Present Days  " +
               present_days +
               "\n Absent Days  " +
@@ -108,7 +136,7 @@ async function getAllEmployees(frm) {
               "\n Present On Holidays " +
               present_on_holiday +
               "\n Payment Days(Fixed Salary)" +
-              (present_days - present_on_holiday + holiday_days) +
+              (present_days - present_on_holiday + unit1_holiday_days) +
               "\n Total Salary Days  " +
               total_salary_days +
               "\n Per Day Salary " +
@@ -125,13 +153,25 @@ async function getAllEmployees(frm) {
           let holiday_work_salary = 0;
           let holiday_salary = 0;
 
+          let adjust_holidays_mid_month_joinee = 0;
+
+          for (const h of unit1_holidays_dates) {
+            if (h.holiday_date < temp_employee_joining_date) {
+              adjust_holidays_mid_month_joinee += 1;
+            }
+          }
+
           let fixed_salary_payment_days =
-            present_days - present_on_holiday + holiday_days;
+            present_days -
+            present_on_holiday +
+            (unit1_holiday_days - adjust_holidays_mid_month_joinee);
 
           // Salary Calculations For Hourly Paid Employee
 
           if (temp_employee_type == "Hourly Salary") {
-            holiday_salary = holiday_days * per_day_salary;
+            holiday_salary =
+              (unit1_holiday_days - adjust_holidays_mid_month_joinee) *
+              per_day_salary;
 
             regular_day_month_salary =
               (regular_day_work_hours - lunch_hours) * regular_day_per_hour_pay;
@@ -161,7 +201,7 @@ async function getAllEmployees(frm) {
 
           // ESI Deduction AND PF Deduction
           let month_present_days_ratio =
-            (present_days - present_on_holiday + holiday_days) /
+            (present_days - present_on_holiday + unit1_holiday_days) /
             total_salary_days;
           let esi_deduction = 0;
           let pf_deduction = 0;
@@ -197,17 +237,31 @@ async function getAllEmployees(frm) {
             let entry = frm.add_child("employee_salary_sheet");
 
             entry.employee = temp_employee;
+            entry.employee_name = temp_employee_name;
+            entry.duty_hours = temp_regular_duty_hours;
+            entry.salary_pm = monthly_basic_salary;
+            entry.regular_work_hours = regular_day_work_hours.toFixed(2);
+            entry.esi_ded = esi_deduction;
+            entry.pf_ded = pf_deduction;
             entry.gross_salary = gross_salary.toFixed(2);
             entry.total_deductions = total_deductions.toFixed(2);
             entry.net_salary = net_salary.toFixed(2);
+
+            entry.salary_start_date = start_date;
+            entry.salary_end_date = end_date;
+            entry.month_days = total_salary_days;
+            entry.unit1_holidays = unit1_holiday_days;
+            entry.unit2_holidays = unit2_holiday_days;
           }
 
           // Change temp_employee, employee_type, temp_regular_duty_hours
           temp_employee = e.employee;
+          temp_employee_name = e.employee_name;
           temp_employee_type = e.employee_type;
           temp_regular_duty_hours = e.regular_duty_hours;
           temp_esi_number = e.esi_number;
           temp_pf_number = e.pf_number;
+          temp_employee_joining_date = e.date_of_joining;
 
           // change per_day_salary , regular_day_per_hour_pay, monthly_basic_salary, pf_salary
           per_day_salary = e.monthly_basic_pay / total_salary_days;
@@ -234,8 +288,6 @@ async function getAllEmployees(frm) {
           holiday_work_hours = 0;
           lunch_hours = 0;
 
-          temp_regular_duty_hours = 0;
-
           present_days = 0;
           present_on_holiday = 0;
           absent_days = 0;
@@ -243,7 +295,7 @@ async function getAllEmployees(frm) {
         }
 
         // Regular Day Calculations
-        if (e.holiday_status == null) {
+        if (e.holiday_status == null && e.in_time != null) {
           // Calculate total working hours for the employee
           let inTime = moment.duration(e.in_time);
           let outTime = moment.duration(e.out_time);
@@ -309,7 +361,9 @@ async function getAllEmployees(frm) {
             lunch_hours += Math.floor(totalHrs / e.regular_duty_hours) * 0.5;
           }
         }
-        if (e.attendance_status == "Present") {
+
+        // Accumulate Attendance Status
+        if (e.attendance_status == "Present" && e.in_time != null) {
           present_days += 1;
         }
         if (e.attendance_status == "Absent") {
@@ -318,6 +372,18 @@ async function getAllEmployees(frm) {
         if (e.attendance_status == "On Leave") {
           leave_days += 1;
         }
+
+        //Accumulate Weekly Attendance Status (Sunday Penalty)
+        let attendance_date = new Date(e.attendance_date);
+        let attendance_date_number = attendance_date.getDate();
+        // let week_number = attendance_date.getWeek();
+        // console.log(
+        //   attendance_date +
+        //     "  !!!attendance!!! " +
+        //     attendance_date_number +
+        //     "!!WEEK!!!!!" +
+        //     week_number
+        // );
       }
       refresh_field("employee_salary_sheet");
     });
@@ -325,7 +391,10 @@ async function getAllEmployees(frm) {
 
 async function getHolidayDetails(start_date, end_date) {
   return new Promise((resolve, reject) => {
-    let number_of_holidays = 0;
+    let unit1_number_of_holidays = 0;
+    let unit2_number_of_holidays = 0;
+    let unit1_holidays_date_array = [];
+    let unit2_holidays_date_array = [];
 
     frappe
       .call({
@@ -335,9 +404,24 @@ async function getHolidayDetails(start_date, end_date) {
       })
       .done((r) => {
         $.each(r.message, function (_i, e) {
-          number_of_holidays += 1;
+          // For UNIT-1
+          if (e.holiday_unit == "Sampat Industries") {
+            unit1_number_of_holidays += 1;
+            unit1_holidays_date_array.push(e.holiday_date);
+          }
+          if (e.holiday_unit == "Raj Udyog") {
+            unit2_number_of_holidays += 1;
+            unit2_holidays_date_array.push(e.holiday_date);
+          }
         });
-        resolve(number_of_holidays);
+        const result = {
+          unit1_number_of_holidays: unit1_number_of_holidays,
+          unit2_number_of_holidays: unit2_number_of_holidays,
+          unit1_holidays_date_array: unit1_holidays_date_array,
+          unit2_holidays_date_array: unit2_holidays_date_array,
+        };
+
+        resolve(result);
       });
   });
 }

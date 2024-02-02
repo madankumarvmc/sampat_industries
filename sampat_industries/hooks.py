@@ -73,7 +73,6 @@ has_website_permission = {
 # add methods and filters to jinja environment
 # jinja = {
 #	"methods": "sampat_industries.utils.jinja_methods",
-#	"filters": "sampat_industries.utils.jinja_filters"
 # }
 
 # Installation

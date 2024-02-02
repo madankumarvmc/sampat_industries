@@ -4,7 +4,7 @@
 import frappe
 from frappe.model.document import Document
 
-class GenerateSalaries(Document):
+class EmployeeSalarySlip(Document):
 	pass
 
 

@@ -1,57 +1,52 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:{start_date}-{end_date}-{#}",
- "creation": "2023-10-24 20:06:06.594296",
+ "creation": "2023-11-11 00:31:18.177994",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "start_date",
-  "end_date",
-  "column_break_5dqce",
-  "working_days",
-  "section_break_28usv",
-  "employee_salary_sheet",
+  "applicable_from",
+  "column_break_ln2g7",
+  "increment_entry_date",
+  "section_break_p7lv3",
+  "employee_yearly_increment_table",
   "amended_from"
  ],
  "fields": [
   {
-   "fieldname": "start_date",
+   "fieldname": "applicable_from",
    "fieldtype": "Date",
-   "label": "Start Date"
+   "label": "Applicable From"
   },
   {
-   "fieldname": "end_date",
-   "fieldtype": "Date",
-   "label": "End Date"
-  },
-  {
-   "fieldname": "column_break_5dqce",
+   "fieldname": "column_break_ln2g7",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "working_days",
-   "fieldtype": "Data",
-   "label": "Working Days"
+   "fieldname": "increment_entry_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Increment Entry Date",
+   "reqd": 1
   },
   {
-   "fieldname": "section_break_28usv",
+   "fieldname": "section_break_p7lv3",
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "employee_salary_sheet",
+   "fieldname": "employee_yearly_increment_table",
    "fieldtype": "Table",
-   "label": "Employee Salary Sheet",
-   "options": "Employee Salary Sheet"
+   "label": "Employee Yearly Increment Table",
+   "options": "Yearly Increment Table"
   },
   {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Generate Salaries",
+   "options": "Yearly Increment Entry",
    "print_hide": 1,
    "read_only": 1
   }
@@ -59,11 +54,10 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-01-11 11:08:47.393949",
+ "modified": "2023-11-11 00:32:58.464181",
  "modified_by": "Administrator",
  "module": "Sampat Industries",
- "name": "Generate Salaries",
- "naming_rule": "Expression",
+ "name": "Yearly Increment Entry",
  "owner": "Administrator",
  "permissions": [
   {

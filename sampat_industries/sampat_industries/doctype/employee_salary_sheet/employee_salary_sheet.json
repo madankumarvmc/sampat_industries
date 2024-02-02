@@ -13,11 +13,24 @@
   "holidays_work_hours",
   "gross_salary",
   "total_deductions",
+  "advance_balance",
   "advance_deductions",
-  "net_salary"
+  "net_salary",
+  "column_break_mgbdn",
+  "duty_hours",
+  "salary_pm",
+  "esi_ded",
+  "pf_ded",
+  "total_penalty",
+  "total_ded_plus_advance_ded",
+  "salary_start_date",
+  "salary_end_date",
+  "month_days",
+  "holidays"
  ],
  "fields": [
   {
+   "columns": 2,
    "fieldname": "employee",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -40,40 +53,110 @@
    "label": "Holidays Work Hours"
   },
   {
+   "columns": 1,
    "fieldname": "gross_salary",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Gross Salary"
   },
   {
+   "columns": 1,
    "fieldname": "total_deductions",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Total Deductions"
   },
   {
+   "columns": 1,
    "fieldname": "advance_deductions",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Advance Deductions"
   },
   {
+   "columns": 1,
    "fieldname": "net_salary",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Net Salary"
   },
   {
+   "columns": 2,
    "fetch_from": "employee.employee_name",
    "fieldname": "employee_name",
    "fieldtype": "Data",
    "label": "Employee Name"
+  },
+  {
+   "fieldname": "column_break_mgbdn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "duty_hours",
+   "fieldtype": "Data",
+   "label": "Duty Hours"
+  },
+  {
+   "fieldname": "salary_pm",
+   "fieldtype": "Data",
+   "label": "Salary PM"
+  },
+  {
+   "fieldname": "esi_ded",
+   "fieldtype": "Data",
+   "label": "ESI Ded"
+  },
+  {
+   "fieldname": "pf_ded",
+   "fieldtype": "Data",
+   "label": "PF Ded"
+  },
+  {
+   "fieldname": "total_penalty",
+   "fieldtype": "Data",
+   "label": "Total Penalty"
+  },
+  {
+   "fieldname": "total_ded_plus_advance_ded",
+   "fieldtype": "Data",
+   "label": "Total Ded plus Advance Ded"
+  },
+  {
+   "fieldname": "salary_start_date",
+   "fieldtype": "Data",
+   "label": "Salary Start Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "salary_end_date",
+   "fieldtype": "Data",
+   "label": "Salary End Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "month_days",
+   "fieldtype": "Data",
+   "label": "Month Days",
+   "read_only": 1
+  },
+  {
+   "fieldname": "holidays",
+   "fieldtype": "Data",
+   "label": "Holidays",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "advance_balance",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Advance Balance"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-10-30 23:31:44.240052",
+ "modified": "2023-11-04 00:00:32.060378",
  "modified_by": "Administrator",
  "module": "Sampat Industries",
  "name": "Employee Salary Sheet",

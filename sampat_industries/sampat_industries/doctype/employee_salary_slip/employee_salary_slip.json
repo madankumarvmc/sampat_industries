@@ -1,19 +1,17 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:{start_date}-{end_date}-{#}",
- "creation": "2023-10-24 20:06:06.594296",
+ "creation": "2023-11-18 20:01:36.150756",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "start_date",
+  "column_break_lnjdb",
   "end_date",
-  "column_break_5dqce",
-  "working_days",
-  "section_break_28usv",
-  "employee_salary_sheet",
+  "section_break_5zju4",
+  "employee_attendance_table",
   "amended_from"
  ],
  "fields": [
@@ -28,42 +26,36 @@
    "label": "End Date"
   },
   {
-   "fieldname": "column_break_5dqce",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "working_days",
-   "fieldtype": "Data",
-   "label": "Working Days"
-  },
-  {
-   "fieldname": "section_break_28usv",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "employee_salary_sheet",
+   "fieldname": "employee_attendance_table",
    "fieldtype": "Table",
-   "label": "Employee Salary Sheet",
-   "options": "Employee Salary Sheet"
+   "label": "Employee Attendance Table",
+   "options": "Employee Attendance Table"
   },
   {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Generate Salaries",
+   "options": "Employee Salary Slip",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "column_break_lnjdb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_5zju4",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-01-11 11:08:47.393949",
+ "modified": "2023-11-18 20:04:37.381989",
  "modified_by": "Administrator",
  "module": "Sampat Industries",
- "name": "Generate Salaries",
- "naming_rule": "Expression",
+ "name": "Employee Salary Slip",
  "owner": "Administrator",
  "permissions": [
   {
