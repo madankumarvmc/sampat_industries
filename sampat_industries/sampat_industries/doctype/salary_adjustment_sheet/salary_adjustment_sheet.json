@@ -1,44 +1,37 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2024-03-05 13:51:36.933351",
+ "creation": "2024-03-05 18:31:11.131037",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "start_date",
-  "end_date",
-  "employee_attendance_table"
+  "month",
+  "details"
  ],
  "fields": [
   {
-   "fieldname": "start_date",
-   "fieldtype": "Date",
+   "fieldname": "month",
+   "fieldtype": "Select",
    "in_list_view": 1,
-   "label": "Start Date",
+   "label": "Month",
+   "options": "January\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember",
    "reqd": 1
   },
   {
-   "fieldname": "end_date",
-   "fieldtype": "Date",
-   "in_list_view": 1,
-   "label": "End Date",
-   "reqd": 1
-  },
-  {
-   "fieldname": "employee_attendance_table",
+   "fieldname": "details",
    "fieldtype": "Table",
-   "label": "Employee Attendance Table",
-   "options": "Employee Attendance Table"
+   "label": "Details",
+   "options": "Salary Adjustment"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-05 13:51:36.933351",
+ "modified": "2024-03-05 19:20:46.705933",
  "modified_by": "Administrator",
  "module": "Sampat Industries",
- "name": "Employee Salary Slip",
+ "name": "Salary Adjustment Sheet",
  "owner": "Administrator",
  "permissions": [
   {

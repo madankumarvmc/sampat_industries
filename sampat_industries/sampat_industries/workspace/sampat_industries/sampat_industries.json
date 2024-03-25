@@ -1,0 +1,33 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"UfmwQcjImh\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Attendance\",\"col\":12}}]",
+ "creation": "2023-09-15 00:52:46.956164",
+ "custom_blocks": [
+  {
+   "custom_block_name": "Attendance",
+   "label": "Attendance"
+  }
+ ],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "solid-success",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Sampat Industries",
+ "links": [],
+ "modified": "2024-03-19 19:42:07.595960",
+ "modified_by": "Administrator",
+ "module": "Sampat Industries",
+ "name": "Sampat Industries",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 39.0,
+ "shortcuts": [],
+ "title": "Sampat Industries"
+}

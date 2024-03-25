@@ -27,6 +27,7 @@ async function generateAttendanceReport(frm) {
   let leave_days = 0;
   let present_on_holiday = 0;
   let holiday_days = 0;
+  let total_ot = 0;
 
   frappe
     .call({
@@ -41,6 +42,8 @@ async function generateAttendanceReport(frm) {
       let temp_pf_number = r.message[0].pf_number;
       let temp_pf_salary = r.message[0].pf_salary;
 
+      let week_leaves = 0;
+
       for (const e of r.message) {
         // Get Employee Salary Details
         let employee_type = e.employee_type;
@@ -48,6 +51,7 @@ async function generateAttendanceReport(frm) {
         let regular_duty_hours = e.regular_duty_hours;
         let holiday_duty_hours = e.holiday_duty_hours;
         let holiday_status = e.holiday_status;
+        let attendance_status = e.attendance_status;
 
         let entry = frm.add_child("employee_attendance_table");
 
@@ -57,6 +61,14 @@ async function generateAttendanceReport(frm) {
         entry.in_time = e.in_time;
         entry.out_time = e.out_time;
         entry.holiday_status = e.holiday_status;
+
+        entry.company = e.company;
+
+        entry.pf_number = e.pf_number;
+        entry.esi_number = e.esi_number;
+        entry.monthly_basic_pay = e.monthly_basic_pay;
+        entry.pf_salary = e.pf_salary;
+        entry.employee_type = e.employee_type;
 
         // Get Weekday
         let weekdayName = await getWeekday(e.monthDate);
@@ -70,6 +82,15 @@ async function generateAttendanceReport(frm) {
         let payHrs = await calculateDailyPayHours(e.in_time, e.out_time);
         entry.pay_hours = payHrs.toFixed(1);
 
+        // Printing OT Hours
+        let otHrs = await calculateOtHours(
+          payHrs,
+          regular_duty_hours,
+          holiday_duty_hours,
+          holiday_status
+        );
+        entry.ot_hours = parseFloat(otHrs.toFixed(1));
+
         // Printing Daily Pay
         let dailyPay = await dailyPayment(
           employee_type,
@@ -81,7 +102,6 @@ async function generateAttendanceReport(frm) {
           totalHrs,
           payHrs
         );
-        entry.day_pay = dailyPay.toFixed(1);
 
         // ********CALCULATIONS********
 
@@ -101,11 +121,11 @@ async function generateAttendanceReport(frm) {
           leave_days = 0;
           present_on_holiday = 0;
           holiday_days = 0;
+          week_leaves = 0;
+          total_ot = 0;
+          console.log(e.employee, "Employee Change", week_leaves);
         }
         // **********************************************
-
-        gross_pay = parseFloat(gross_pay) + parseFloat(dailyPay.toFixed(1));
-        entry.gross_pay = gross_pay.toFixed(1);
 
         // Calculating Present, Absent, On leave
         if (e.attendance_status == "Present") {
@@ -127,26 +147,76 @@ async function generateAttendanceReport(frm) {
           holiday_days += 1;
         }
 
+        // ********MANAGING ABSENTISM IN THE WEEK***********
+
+        // Calculate if(absent > 3 days) in a week. If YES, No sunday payment.
+        if (
+          weekdayName != "Sunday" &&
+          (attendance_status == "On Leave" || attendance_status == null)
+        ) {
+          week_leaves += 1;
+        }
+
+        let dayPay = dailyPay;
+        if (weekdayName == "Sunday") {
+          if (week_leaves >= 3) {
+            if (
+              employee_type != "Weekly Visit Pay" &&
+              employee_type != "Daily Basis"
+            ) {
+              let perDaySalary = monthly_basic_pay / total_salary_days;
+              dayPay = dayPay - perDaySalary;
+            }
+          }
+          week_leaves = 0;
+        }
+        entry.day_pay = parseFloat(dayPay.toFixed(1));
+
+        // *********MANAGING GROSS PAY AND OT*************
+
+        gross_pay = parseFloat(gross_pay) + parseFloat(dayPay.toFixed(2));
+
+        // MANAGING ALL DAYS ABSENT EMPLOYEE PAY SLIP(PUT GROSS PAY = 0)
+        let month_date = new Date(e.monthDate);
+        if (month_date.getDate() + 1 == date2.getDate()) {
+          if (present_days == 0) {
+            gross_pay = 0;
+          }
+        }
+
+        entry.gross_pay = parseFloat(Math.round(gross_pay));
+
+        total_ot = parseFloat(total_ot) + parseFloat(otHrs.toFixed(1));
+        entry.total_ot = parseFloat(total_ot.toFixed(1));
+
         // ESI AND PF DEDUCTIONS**************
         let month_present_days_ratio =
           (present_days - present_on_holiday + holiday_days) /
           total_salary_days;
-        let esi_deduction = 0;
-        let pf_deduction = 0;
+        let esi_deduction = 0.0;
+        let pf_deduction = 0.0;
 
         let gross_wage = temp_pf_salary * month_present_days_ratio;
 
-        if (temp_esi_number) {
-          esi_deduction = gross_wage * 0.0075;
-          console.log(temp_employee, esi_deduction);
-          entry.esi_deduction = esi_deduction.toFixed(1);
+        esi_deduction = gross_wage * 0.0075;
+        if (esi_deduction == 0) {
+          esi_deduction = 0.0;
+        }
+        if (temp_esi_number != null) {
+          entry.esi_deduction = parseFloat(Math.round(esi_deduction));
+        } else {
+          entry.esi_deduction = 0.0;
         }
 
-        if (temp_pf_number) {
-          let pf_basic_wage = gross_wage * 0.7;
-          pf_deduction = pf_basic_wage * 0.12;
-          console.log(pf_deduction);
-          entry.pf_deduction = pf_deduction.toFixed(1);
+        let pf_basic_wage = gross_wage * 0.7;
+        pf_deduction = pf_basic_wage * 0.12;
+        if (pf_deduction == 0) {
+          pf_deduction = 0.0;
+        }
+        if (temp_pf_number != null) {
+          entry.pf_deduction = parseFloat(Math.round(pf_deduction));
+        } else {
+          entry.pf_deduction = 0.0;
         }
       }
       refresh_field("employee_attendance_table");
@@ -209,6 +279,26 @@ async function calculateDailyPayHours(in_time, out_time) {
   });
 }
 
+// Calculating OT
+async function calculateOtHours(
+  payHrs,
+  regular_duty_hours,
+  holiday_duty_hours,
+  holiday_status
+) {
+  return new Promise((resolve) => {
+    let otHrs = 0;
+
+    if (holiday_status == "holidays" && payHrs > holiday_duty_hours) {
+      otHrs = payHrs - holiday_duty_hours;
+    }
+    if (holiday_status != "holidays" && payHrs > regular_duty_hours) {
+      otHrs = payHrs - regular_duty_hours;
+    }
+    resolve(otHrs);
+  });
+}
+
 // Calculating daily pay
 async function dailyPayment(
   employee_type,
@@ -234,13 +324,16 @@ async function dailyPayment(
         let dailyPay = (perDaySalary / regular_duty_hours) * payHrs;
         resolve(dailyPay);
       }
-
-      // For Hourly Paid Employee
-    } else if (employee_type == "Hourly Salary") {
+    }
+    // For Hourly Paid Employee
+    else if (employee_type == "Hourly Salary") {
       let perDaySalary = monthly_basic_pay / total_salary_days;
-      let hourlySalary = perDaySalary / regular_duty_hours;
-      let holiday_ot = payHrs - holiday_duty_hours;
+      let hourlySalary = 0;
+      if (regular_duty_hours != 0) {
+        hourlySalary = perDaySalary / regular_duty_hours;
+      }
       if (holiday_status == "holidays" && payHrs >= holiday_duty_hours) {
+        let holiday_ot = payHrs - holiday_duty_hours;
         let dailyPay = perDaySalary + perDaySalary + holiday_ot * hourlySalary;
         resolve(dailyPay);
       } else if (holiday_status == "holidays" && payHrs < holiday_duty_hours) {
@@ -250,7 +343,36 @@ async function dailyPayment(
         let dailyPay = payHrs * hourlySalary;
         resolve(dailyPay);
       }
-    } else {
+    }
+
+    // For Daily Basis Hourly Paid Employee
+    else if (employee_type == "Daily Basis") {
+      let perDaySalary = monthly_basic_pay / total_salary_days;
+      let hourlySalary = 0;
+      if (regular_duty_hours != 0) {
+        hourlySalary = perDaySalary / regular_duty_hours;
+      }
+      let dailyPay = payHrs * hourlySalary;
+      resolve(dailyPay);
+    }
+
+    // For One Weekly(6hrs) Visit Employee
+    else if (employee_type == "Weekly Visit Pay") {
+      let perDaySalary = monthly_basic_pay / total_salary_days;
+      let hourlySalary = 0;
+      if (regular_duty_hours != 0) {
+        hourlySalary = perDaySalary / regular_duty_hours;
+      }
+      if (payHrs < 6) {
+        let dailyPay = payHrs * hourlySalary;
+        resolve(dailyPay);
+      } else {
+        let dailyPay = 6 * hourlySalary;
+        resolve(dailyPay);
+      }
+    }
+    // Else..No condition satisfied
+    else {
       let dailyPay = 0;
       resolve(dailyPay);
     }
@@ -258,3 +380,22 @@ async function dailyPayment(
     //   // production salary.......
   });
 }
+
+// frappe.ui.form.on("Employee Salary Slip", {
+//   end_date: function (frm) {
+//     let start_date = frm.doc.start_date;
+//     let end_date = frm.doc.end_date;
+
+//     frappe
+//       .call({
+//         method:
+//           "sampat_industries.sampat_industries.doctype.employee_salary_slip.employee_salary_slip.get_previous_month_attendance_details",
+//         args: { start_date, end_date },
+//       })
+//       .done(async (r) => {
+//         console.log(r);
+//         let weekdayName = await getWeekday(r.message[0]);
+//         console.log(weekdayName);
+//       });
+//   },
+// });

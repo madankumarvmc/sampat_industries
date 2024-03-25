@@ -1,0 +1,178 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-03-25 22:56:43.947974",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "type",
+  "column_break_r7een",
+  "date",
+  "section_break_oxcwr",
+  "from",
+  "account_balance_from",
+  "column_break_xjfov",
+  "to",
+  "account_balance_to",
+  "section_break_twjo8",
+  "mode",
+  "column_break_c7rwx",
+  "amount",
+  "payment_details_section",
+  "reason",
+  "section_break_pmf0m",
+  "bill_number",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "allow_in_quick_entry": 1,
+   "columns": 2,
+   "fieldname": "from",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "From",
+   "options": "Account",
+   "read_only_depends_on": "eval:doc.type == \"Credit\"",
+   "reqd": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "depends_on": "from",
+   "fetch_from": "from.balance_amount",
+   "fieldname": "account_balance_from",
+   "fieldtype": "Int",
+   "label": "Account Balance (From)",
+   "precision": "1"
+  },
+  {
+   "fieldname": "column_break_xjfov",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "columns": 2,
+   "fieldname": "to",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "To",
+   "mandatory_depends_on": "eval: doc.type != \"Expense\"",
+   "options": "Account",
+   "read_only_depends_on": "eval: doc.type == \"Expense\""
+  },
+  {
+   "fieldname": "section_break_twjo8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "columns": 1,
+   "fieldname": "mode",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Mode ",
+   "options": "Cash\nBank Transfer\nCheque",
+   "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Internal Money Transfer",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "depends_on": "to",
+   "fetch_from": "to.balance_amount",
+   "fieldname": "account_balance_to",
+   "fieldtype": "Int",
+   "label": "Account Balance (To)"
+  },
+  {
+   "fieldname": "column_break_c7rwx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "amount",
+   "fieldtype": "Float",
+   "label": "Amount",
+   "non_negative": 1,
+   "precision": "1",
+   "reqd": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_oxcwr",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "payment_details_section",
+   "fieldtype": "Section Break",
+   "label": "Payment Details"
+  },
+  {
+   "fieldname": "bill_number",
+   "fieldtype": "Data",
+   "label": "Bill Number"
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Text",
+   "label": "Reason"
+  },
+  {
+   "fieldname": "section_break_pmf0m",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_r7een",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "Transfer\nExpense\nCredit",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-03-26 02:31:45.140982",
+ "modified_by": "Administrator",
+ "module": "Sampat Industries",
+ "name": "Internal Money Transfer",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_views": 1
+}

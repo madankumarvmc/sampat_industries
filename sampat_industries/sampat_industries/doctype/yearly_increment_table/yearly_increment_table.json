@@ -51,6 +51,7 @@
    "read_only": 1
   },
   {
+   "fetch_from": "employee.employee_name",
    "fieldname": "employee_name",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -61,7 +62,7 @@
  "is_submittable": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-11-11 00:42:16.128130",
+ "modified": "2024-03-18 10:01:33.299501",
  "modified_by": "Administrator",
  "module": "Sampat Industries",
  "name": "Yearly Increment Table",

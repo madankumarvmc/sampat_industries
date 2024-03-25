@@ -79,6 +79,7 @@ def add_to_attendance(employee, date, company, status):
         
         a_doc.insert(ignore_permissions=True)
         # frappe.msgprint("Attendance Updated")
+        a_doc.submit()
         
         
         

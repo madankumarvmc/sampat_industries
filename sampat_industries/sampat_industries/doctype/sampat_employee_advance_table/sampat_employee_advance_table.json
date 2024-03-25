@@ -1,0 +1,72 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-03-19 15:24:47.365921",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employee",
+  "employee_name",
+  "prev_advance",
+  "curr_month_adv",
+  "total_adv",
+  "to_pay"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Read Only",
+   "in_list_view": 1,
+   "label": "Employee Name"
+  },
+  {
+   "fieldname": "prev_advance",
+   "fieldtype": "Read Only",
+   "in_list_view": 1,
+   "label": "Prev Advance"
+  },
+  {
+   "fieldname": "curr_month_adv",
+   "fieldtype": "Read Only",
+   "in_list_view": 1,
+   "label": "Curr Month Adv"
+  },
+  {
+   "columns": 1,
+   "fieldname": "total_adv",
+   "fieldtype": "Read Only",
+   "in_list_view": 1,
+   "label": "Total Adv"
+  },
+  {
+   "columns": 1,
+   "fieldname": "to_pay",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "To Pay",
+   "precision": "1"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-03-19 15:28:58.829726",
+ "modified_by": "Administrator",
+ "module": "Sampat Industries",
+ "name": "Sampat Employee Advance Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
