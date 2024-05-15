@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:{MM}-{YY}-TRANX-{####}",
  "creation": "2024-03-25 22:56:43.947974",
  "default_view": "List",
  "doctype": "DocType",
@@ -8,8 +9,13 @@
  "engine": "InnoDB",
  "field_order": [
   "type",
+  "expense_head",
+  "current_advance",
   "column_break_r7een",
   "date",
+  "freight_supplier",
+  "employee",
+  "employee_name",
   "section_break_oxcwr",
   "from",
   "account_balance_from",
@@ -35,7 +41,7 @@
    "in_list_view": 1,
    "label": "From",
    "options": "Account",
-   "read_only_depends_on": "eval:doc.type == \"Credit\"",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -60,7 +66,7 @@
    "label": "To",
    "mandatory_depends_on": "eval: doc.type != \"Expense\"",
    "options": "Account",
-   "read_only_depends_on": "eval: doc.type == \"Expense\""
+   "read_only_depends_on": "eval: doc.type == \"Expense\" || doc.type == \"Bank Credit\""
   },
   {
    "fieldname": "section_break_twjo8",
@@ -101,6 +107,7 @@
    "allow_in_quick_entry": 1,
    "fieldname": "amount",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Amount",
    "non_negative": 1,
    "precision": "1",
@@ -144,17 +151,52 @@
    "fieldname": "type",
    "fieldtype": "Select",
    "label": "Type",
-   "options": "Transfer\nExpense\nCredit",
+   "options": "\nTransfer\nExpense\nCredit\nBank Credit",
    "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.type == \"Expense\"",
+   "fieldname": "expense_head",
+   "fieldtype": "Link",
+   "label": "Expense Head",
+   "options": "Expense Heads"
+  },
+  {
+   "depends_on": "eval:doc.expense_head == \"Freight\"",
+   "fieldname": "freight_supplier",
+   "fieldtype": "Link",
+   "label": "Freight Supplier",
+   "options": "Supplier"
+  },
+  {
+   "depends_on": "eval:doc.expense_head == \"Employee Advances\"",
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Advance To",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Read Only",
+   "label": "Employee Name"
+  },
+  {
+   "depends_on": "eval:doc.expense_head == \"Employee Advances\"",
+   "fetch_from": "employee.advances_balance",
+   "fieldname": "current_advance",
+   "fieldtype": "Read Only",
+   "label": "Current Advance"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-26 02:31:45.140982",
+ "modified": "2024-04-27 08:50:34.916484",
  "modified_by": "Administrator",
  "module": "Sampat Industries",
  "name": "Internal Money Transfer",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -167,6 +209,19 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],

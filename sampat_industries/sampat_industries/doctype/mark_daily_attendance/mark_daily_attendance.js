@@ -311,7 +311,9 @@ function fetchEmployeeAttendance(frm) {
         let total_hrs_toupdate = updateTotalHrs(e.LOG_IN, e.LOG_OUT);
         let total_hrs = parseInt(total_hrs_toupdate, 10);
         if (total_hrs <= 0) {
-          console.log(total_hrs_toupdate);
+          frappe.msgprint(
+            "Total Work Hour cannot be NEGATIVE. Check the entry"
+          );
           entry.total_hrs =
             "<span style='color:red'>" + total_hrs_toupdate + "</span>";
         } else if (0 < total_hrs && total_hrs <= 5) {
@@ -347,8 +349,20 @@ function calculateTotalHrs(frm, cdt, cdn) {
     const totalHrs =
       Math.floor(duration.asHours()) + moment.utc(timeDiff).format(":mm");
 
+    const work_hrs = parseFloat(
+      Math.floor(duration.asHours()) + moment.utc(timeDiff).format(":mm")
+    );
+
+    console.log(totalHrs, work_hrs);
+
+    // if (work_hrs > 0) {
     frappe.model.set_value(cdt, cdn, "total_hrs", totalHrs);
     frm.refresh_field("total_hrs");
+    // } else {
+    // frappe.msgprint(
+    // "Total Hours Cannot be negative. Please enter correct details"
+    // );
+    // }
   }
 }
 

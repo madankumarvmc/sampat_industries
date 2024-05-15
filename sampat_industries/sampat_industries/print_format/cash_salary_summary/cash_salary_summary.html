@@ -1,0 +1,45 @@
+{%- from "templates/print_formats/standard_macros.html" import add_header -%}
+<h3>{{doc.month}} {{'-'}} {{doc.year}}</h3>
+<!-- initiate total_amount variable -->
+{% set ta = namespace(total_amount = 0) %}
+
+<!-- Print column names -->
+<div class="container mt-5">
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>ECN NO</th>
+        <th>Employee Name</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+
+    <!-- Loop through the salary_payment_sheet_table -->
+    {% for employee_salary in doc.salary_payment_sheet_table %}
+
+    <!-- Set values for variables -->
+    {% set employee = employee_salary.employee %}
+
+    <!-- Get Employee Data fro employee doctype -->
+    {% set employee_data = frappe.db.get_value("Employee", employee,
+    ["esi_company", "salary_mode", "bank", "bank_ac_no", "ifsc_code"],
+    as_dict=True) %}
+
+    <!-- If Employee is bank Paid? -->
+    {% if employee_data.salary_mode == "Cash" and employee_salary.paid == 1%}
+    <!-- Distributing esi_company wise -->
+    <tbody>
+      <tr>
+        <td>{{employee}}</td>
+        <td>{{employee_salary.employee_name}}</td>
+        <td>{{employee_salary.net_pay}}</td>
+      </tr>
+    </tbody>
+
+    {% set ta.total_amount = ta.total_amount + employee_salary.net_pay|float %}
+    {%endif%}
+    <!-- End For loop -->
+    {% endfor %}
+  </table>
+</div>
+<div>Total Amount : {{ta.total_amount}}</div>

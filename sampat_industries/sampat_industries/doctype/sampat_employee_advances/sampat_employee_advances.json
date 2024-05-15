@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "format:{employee_name}-{#}",
  "creation": "2024-03-19 15:17:49.340806",
@@ -14,7 +15,6 @@
   "prev_balance",
   "advance_amount",
   "new_advance",
-  "amended_from",
   "amended_from"
  ],
  "fields": [
@@ -45,7 +45,7 @@
   {
    "allow_in_quick_entry": 1,
    "default": "0",
-   "fetch_from": "amended_from.prev_balance",
+   "fetch_from": "employee.advances_balance",
    "fieldname": "prev_balance",
    "fieldtype": "Read Only",
    "label": "Prev Balance",
@@ -62,24 +62,6 @@
    "reqd": 1
   },
   {
-   "columns": 1,
-   "default": "0",
-   "fetch_from": "amended_from.prev_balance",
-   "fieldname": "new_advance",
-   "fieldtype": "Read Only",
-   "in_list_view": 1,
-   "label": "New Advance"
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Employee Advances",
-   "print_hide": 1,
-   "read_only": 1
-  },
-  {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
@@ -87,12 +69,19 @@
    "options": "Sampat Employee Advances",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "new_advance",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "New Advance",
+   "precision": "1"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-19 15:17:49.340806",
+ "modified": "2024-04-11 13:41:16.142029",
  "modified_by": "Administrator",
  "module": "Sampat Industries",
  "name": "Sampat Employee Advances",
@@ -102,18 +91,46 @@
  "permissions": [
   {
    "create": 1,
-   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "select": 1,
    "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "import": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Administrator",
+   "select": 1,
+   "set_user_permissions": 1,
+   "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],
- "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

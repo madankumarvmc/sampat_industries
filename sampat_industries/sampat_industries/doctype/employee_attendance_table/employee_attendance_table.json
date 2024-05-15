@@ -15,6 +15,7 @@
   "out_time",
   "work_hours",
   "pay_hours",
+  "total_pay_hours",
   "ot_hours",
   "day_pay",
   "column_break_gcrur",
@@ -27,7 +28,11 @@
   "pf_number",
   "pf_salary",
   "monthly_basic_pay",
-  "employee_type"
+  "employee_type",
+  "advance_deduction",
+  "advance_balance",
+  "penalty",
+  "add_salary"
  ],
  "fields": [
   {
@@ -156,12 +161,42 @@
    "fieldname": "employee_type",
    "fieldtype": "Data",
    "label": "Employee Type"
+  },
+  {
+   "fieldname": "advance_deduction",
+   "fieldtype": "Float",
+   "label": "Advance Deduction",
+   "precision": "2"
+  },
+  {
+   "fieldname": "advance_balance",
+   "fieldtype": "Float",
+   "label": "Advance Balance",
+   "precision": "2"
+  },
+  {
+   "fieldname": "penalty",
+   "fieldtype": "Float",
+   "label": "Penalty",
+   "precision": "1"
+  },
+  {
+   "fieldname": "add_salary",
+   "fieldtype": "Float",
+   "label": "Add Salary",
+   "precision": "1"
+  },
+  {
+   "fieldname": "total_pay_hours",
+   "fieldtype": "Float",
+   "label": "Total Pay Hours",
+   "precision": "1"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-03-12 16:28:51.723683",
+ "modified": "2024-04-18 10:03:49.597858",
  "modified_by": "Administrator",
  "module": "Sampat Industries",
  "name": "Employee Attendance Table",

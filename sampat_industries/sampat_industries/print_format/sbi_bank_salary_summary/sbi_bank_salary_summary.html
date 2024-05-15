@@ -1,0 +1,265 @@
+{%- from "templates/print_formats/standard_macros.html" import add_header -%}
+
+<!-- initiate total_amount variable -->
+{% set ta = namespace(total_amount = 0) %}
+
+<!-- Print column names -->
+<div class="container mt-5">
+  <h4>Anita Metal Finishes</h4>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>ECN NO</th>
+        <th>Bank Acc Name</th>
+        <th>Amount</th>
+        <th>Bank Acc Number</th>
+      </tr>
+    </thead>
+
+    <!-- Loop through the salary_payment_sheet_table -->
+    {% for employee_salary in doc.salary_payment_sheet_table %}
+
+    <!-- Set values for variables -->
+    {% set employee = employee_salary.employee %}
+
+    <!-- Get Employee Data fro employee doctype -->
+    {% set employee_data = frappe.db.get_value("Employee", employee,
+    ["esi_company", "salary_mode", "bank", "bank_ac_no", "ifsc_code"],
+    as_dict=True) %}
+
+    <!-- If Employee is bank Paid? -->
+    {% if employee_data.salary_mode == "Bank" and employee_salary.paid == 1 and
+    (employee_data.bank == 'State Bank Of India' or employee_data.bank == 'STATE
+    BANK OF INDIA' )%}
+    <!-- Distributing esi_company wise -->
+    {% if employee_data.esi_company == "Anita Metal Finishes"%}
+    <tbody>
+      <tr>
+        <td>{{employee}}</td>
+        <td>{{employee_salary.employee_name}}</td>
+        <td>{{employee_salary.net_pay}}</td>
+        <td>{{employee_data.bank_ac_no}}</td>
+      </tr>
+    </tbody>
+
+    {% set ta.total_amount = ta.total_amount + employee_salary.net_pay|float %}
+    {% endif %} {%endif%}
+    <!-- End For loop -->
+    {% endfor %}
+  </table>
+</div>
+<div>Total Amount : {{ta.total_amount}}</div>
+
+<!-- Break the page -->
+<div style="page-break-after: always"></div>
+
+<!-- initiate total_amount variable -->
+{% set ta = namespace(total_amount = 0) %}
+
+<!-- Print column names -->
+<div class="container mt-5">
+  <h4>Jha Enterprises</h4>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>ECN NO</th>
+        <th>Bank Acc Name</th>
+        <th>Amount</th>
+        <th>Bank Acc Number</th>
+      </tr>
+    </thead>
+
+    <!-- Loop through the salary_payment_sheet_table -->
+    {% for employee_salary in doc.salary_payment_sheet_table %}
+
+    <!-- Set values for variables -->
+    {% set employee = employee_salary.employee %}
+
+    <!-- Get Employee Data fro employee doctype -->
+    {% set employee_data = frappe.db.get_value("Employee", employee,
+    ["esi_company", "salary_mode", "bank", "bank_ac_no", "ifsc_code"],
+    as_dict=True) %}
+
+    <!-- If Employee is bank Paid? -->
+    {% if employee_data.salary_mode == "Bank" and employee_salary.paid == 1 and
+    (employee_data.bank == "State Bank Of India" or employee_data.bank == 'STATE
+    BANK OF INDIA')%}
+    <!-- Distributing esi_company wise -->
+    {% if employee_data.esi_company == "Jha Enterprises"%}
+    <tbody>
+      <tr>
+        <td>{{employee}}</td>
+        <td>{{employee_salary.employee_name}}</td>
+        <td>{{employee_salary.net_pay}}</td>
+        <td>{{employee_data.bank_ac_no}}</td>
+      </tr>
+    </tbody>
+
+    {% set ta.total_amount = ta.total_amount + employee_salary.net_pay|float %}
+    {% endif %} {%endif%}
+    <!-- End For loop -->
+    {% endfor %}
+  </table>
+</div>
+<div>Total Amount : {{ta.total_amount}}</div>
+
+<!-- Break the page -->
+<div style="page-break-after: always"></div>
+
+<!-- initiate total_amount variable -->
+{% set ta = namespace(total_amount = 0) %}
+
+<!-- Print column names -->
+<div class="container mt-5">
+  <h4>Raj Udyog</h4>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>ECN NO</th>
+        <th>Bank Acc Name</th>
+        <th>Amount</th>
+        <th>Bank Acc Number</th>
+      </tr>
+    </thead>
+
+    <!-- Loop through the salary_payment_sheet_table -->
+    {% for employee_salary in doc.salary_payment_sheet_table %}
+
+    <!-- Set values for variables -->
+    {% set employee = employee_salary.employee %}
+
+    <!-- Get Employee Data fro employee doctype -->
+    {% set employee_data = frappe.db.get_value("Employee", employee,
+    ["esi_company", "salary_mode", "bank", "bank_ac_no", "ifsc_code"],
+    as_dict=True) %}
+
+    <!-- If Employee is bank Paid? -->
+    {% if employee_data.salary_mode == "Bank" and employee_salary.paid == 1 and
+    (employee_data.bank == "State Bank Of India" or employee_data.bank == 'STATE
+    BANK OF INDIA')%}
+    <!-- Distributing esi_company wise -->
+    {% if employee_data.esi_company == "Raj Udyog"%}
+    <tbody>
+      <tr>
+        <td>{{employee}}</td>
+        <td>{{employee_salary.employee_name}}</td>
+        <td>{{employee_salary.net_pay}}</td>
+        <td>{{employee_data.bank_ac_no}}</td>
+      </tr>
+    </tbody>
+
+    {% set ta.total_amount = ta.total_amount + employee_salary.net_pay|float %}
+    {% endif %} {%endif%}
+    <!-- End For loop -->
+    {% endfor %}
+  </table>
+</div>
+<div>Total Amount : {{ta.total_amount}}</div>
+
+<!-- Break the page -->
+<div style="page-break-after: always"></div>
+
+{% set ta = namespace(total_amount = 0) %}
+
+<!-- Print column names -->
+<div class="container mt-5">
+  <h4>Sampat Industries</h4>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>ECN NO</th>
+        <th>Bank Acc Name</th>
+        <th>Amount</th>
+        <th>Bank Acc Number</th>
+      </tr>
+    </thead>
+
+    <!-- Loop through the salary_payment_sheet_table -->
+    {% for employee_salary in doc.salary_payment_sheet_table %}
+
+    <!-- Set values for variables -->
+    {% set employee = employee_salary.employee %}
+
+    <!-- Get Employee Data fro employee doctype -->
+    {% set employee_data = frappe.db.get_value("Employee", employee,
+    ["esi_company", "salary_mode", "bank", "bank_ac_no", "ifsc_code"],
+    as_dict=True) %}
+
+    <!-- If Employee is bank Paid? -->
+    {% if employee_data.salary_mode == "Bank" and employee_salary.paid == 1 and
+    (employee_data.bank == "State Bank Of India" or employee_data.bank == 'STATE
+    BANK OF INDIA')%}
+    <!-- Distributing esi_company wise -->
+    {% if employee_data.esi_company == "Sampat Industries"%}
+    <tbody>
+      <tr>
+        <td>{{employee}}</td>
+        <td>{{employee_salary.employee_name}}</td>
+        <td>{{employee_salary.net_pay}}</td>
+        <td>{{employee_data.bank_ac_no}}</td>
+      </tr>
+    </tbody>
+
+    {% set ta.total_amount = ta.total_amount + employee_salary.net_pay|float %}
+    {% endif %} {%endif%}
+    <!-- End For loop -->
+    {% endfor %}
+  </table>
+</div>
+<div>Total Amount : {{ta.total_amount}}</div>
+
+<!-- Break the page -->
+<div style="page-break-after: always"></div>
+
+<!-- initiate total_amount variable -->
+{% set ta = namespace(total_amount = 0) %}
+
+<!-- Print column names -->
+<div class="container mt-5">
+  <h4>Singh Lal Babu Enterprises</h4>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>ECN NO</th>
+        <th>Bank Acc Name</th>
+        <th>Amount</th>
+        <th>Bank Acc Number</th>
+      </tr>
+    </thead>
+
+    <!-- Loop through the salary_payment_sheet_table -->
+    {% for employee_salary in doc.salary_payment_sheet_table %}
+
+    <!-- Set values for variables -->
+    {% set employee = employee_salary.employee %}
+
+    <!-- Get Employee Data fro employee doctype -->
+    {% set employee_data = frappe.db.get_value("Employee", employee,
+    ["esi_company", "salary_mode", "bank", "bank_ac_no", "ifsc_code"],
+    as_dict=True) %}
+
+    <!-- If Employee is bank Paid? -->
+    {% if employee_data.salary_mode == "Bank" and employee_salary.paid == 1 and
+    (employee_data.bank == "State Bank Of India" or employee_data.bank == 'STATE
+    BANK OF INDIA')%}
+    <!-- Distributing esi_company wise -->
+    {% if employee_data.esi_company == "Singh Lal Babu Enterprises"%}
+    <tbody>
+      <tr>
+        <td>{{employee}}</td>
+        <td>{{employee_salary.employee_name}}</td>
+        <td>{{employee_salary.net_pay}}</td>
+        <td>{{employee_data.bank_ac_no}}</td>
+      </tr>
+    </tbody>
+
+    {% set ta.total_amount = ta.total_amount + employee_salary.net_pay|float %}
+    {% endif %} {%endif%}
+    <!-- End For loop -->
+    {% endfor %}
+  </table>
+</div>
+<div>Total Amount : {{ta.total_amount}}</div>
+
+<!-- Break the page -->
+<div style="page-break-after: always"></div>

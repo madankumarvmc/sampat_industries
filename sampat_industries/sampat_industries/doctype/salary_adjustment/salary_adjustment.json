@@ -20,7 +20,8 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Employee",
-   "options": "Employee"
+   "options": "Employee",
+   "reqd": 1
   },
   {
    "columns": 2,
@@ -36,7 +37,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Type",
-   "options": "Penalty\nAdd To Salary",
+   "options": "Add To Salary\nPenalty",
    "precision": "2",
    "reqd": 1
   },
@@ -60,7 +61,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-03-05 19:13:44.752366",
+ "modified": "2024-04-04 18:22:14.167025",
  "modified_by": "Administrator",
  "module": "Sampat Industries",
  "name": "Salary Adjustment",

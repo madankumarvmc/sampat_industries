@@ -21,6 +21,27 @@ frappe.ui.form.on("Worker Production Sheet Child", {
       frm.refresh_field("operation_cost");
     }
   },
+
+  qty: async function (frm, cdt, cdn) {
+    const child = locals[cdt][cdn];
+    if (child.operation_cost <= 0 || child.operation_cost == null) {
+      frappe.msgprint(
+        __(
+          "Operation Cost is not defined in Operation Master. Please define correct Operation Cost"
+        )
+      );
+      frappe.model.set_value(cdt, cdn, "qty", 0);
+      frm.refresh_field("qty");
+    }
+  },
+
+  start_time: function (frm, cdt, cdn) {
+    calculateTotalHrs(frm, cdt, cdn);
+  },
+
+  end_time: function (frm, cdt, cdn) {
+    calculateTotalHrs(frm, cdt, cdn);
+  },
 });
 
 async function get_cost_for_employee(frm, cdt, cdn) {
@@ -63,4 +84,34 @@ async function get_operation_cost(frm, cdt, cdn) {
       },
     });
   });
+}
+
+function calculateTotalHrs(frm, cdt, cdn) {
+  try {
+    const child = locals[cdt][cdn];
+    const startTime = child.start_time;
+    const endTime = child.end_time;
+
+    if (startTime && endTime) {
+      const timeDiff = moment(endTime, "HH:mm").diff(
+        moment(startTime, "HH:mm")
+      );
+      const duration = moment.duration(timeDiff);
+      // const totalHrs =
+      //   Math.floor(duration.asHours()) + moment.utc(timeDiff).format(":mm");
+
+      // let workHours = parseFloat(totalHrs);
+
+      const totalHours = Math.floor(duration.asHours()); // Get total hours without minutes
+      const totalMinutes = moment.utc(timeDiff).minutes(); // Get total minutes
+
+      let workHours = totalHours + totalMinutes / 60;
+
+      frappe.model.set_value(cdt, cdn, "work_hrs", workHours);
+      console.log(totalHrs);
+      frm.refresh_field("work_hrs");
+    }
+  } catch (error) {
+    console.error("An error occurred while setting field value:", error);
+  }
 }

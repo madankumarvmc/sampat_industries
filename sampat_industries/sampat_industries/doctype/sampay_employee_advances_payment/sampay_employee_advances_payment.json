@@ -1,6 +1,6 @@
 {
  "actions": [],
- "allow_rename": 1,
+ "autoname": "format:ADV-DED-{month}-{year}",
  "creation": "2024-03-19 15:26:41.740265",
  "default_view": "List",
  "doctype": "DocType",
@@ -8,6 +8,11 @@
  "engine": "InnoDB",
  "field_order": [
   "month",
+  "year",
+  "column_break_deivn",
+  "month_start_date",
+  "month_end_date",
+  "section_break_jqym9",
   "sampat_employee_advance_table",
   "amended_from"
  ],
@@ -17,7 +22,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Month",
-   "options": "January\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember",
+   "options": "\nJanuary\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember",
    "reqd": 1
   },
   {
@@ -27,6 +32,26 @@
    "options": "Sampat Employee Advance Table"
   },
   {
+   "fieldname": "column_break_deivn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "month_start_date",
+   "fieldtype": "Date",
+   "label": "Month Start Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "month_end_date",
+   "fieldtype": "Date",
+   "label": "Month End Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_jqym9",
+   "fieldtype": "Section Break"
+  },
+  {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
@@ -34,18 +59,27 @@
    "options": "Sampay Employee Advances Payment",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "year",
+   "fieldtype": "Select",
+   "label": "Year",
+   "options": "\n2021\n2022\n2023\n2024\n2025\n2026\n2027\n2028\n2029\n2030\n2031\n2032\n2033\n2034\n2035\n2036\n2037\n2038\n2039\n2040\n2041\n2042\n2043\n2044\n2045",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-19 15:27:34.968945",
+ "modified": "2024-05-10 08:25:43.093832",
  "modified_by": "Administrator",
  "module": "Sampat Industries",
  "name": "Sampay Employee Advances Payment",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -54,6 +88,20 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
    "share": 1,
    "write": 1
   }

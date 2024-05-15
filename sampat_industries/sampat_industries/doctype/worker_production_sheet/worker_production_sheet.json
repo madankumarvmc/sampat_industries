@@ -38,7 +38,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-22 17:38:31.850871",
+ "modified": "2024-03-26 23:53:39.772231",
  "modified_by": "Administrator",
  "module": "Sampat Industries",
  "name": "Worker Production Sheet",
@@ -46,6 +46,8 @@
  "owner": "Administrator",
  "permissions": [
   {
+   "amend": 1,
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -55,6 +57,7 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   },
   {

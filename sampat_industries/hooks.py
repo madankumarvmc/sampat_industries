@@ -38,6 +38,9 @@ app_license = "sampatindustries"
 # include js in doctype views
 doctype_js = {
     "Salary Slip" : "public/js/doctype_plugin/salary_slip/salary_slip.js",
+    "BOM" : "public/js/doctype_plugin/BOM/bom.js",
+    "Stock Enrty" : "public/js/doctype_plugin/stock_entry/stock_entry.js",
+    "Employee" : "public/js/doctype_plugin/Employee/Employee.js",
     }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}

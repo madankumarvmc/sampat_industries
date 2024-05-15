@@ -9,7 +9,7 @@
  "filters": [],
  "idx": 0,
  "is_standard": "Yes",
- "modified": "2024-03-08 17:16:54.640195",
+ "modified": "2024-04-12 12:32:11.064272",
  "modified_by": "Administrator",
  "module": "Sampat Industries",
  "name": "Salary Slip Report",
@@ -21,6 +21,9 @@
  "roles": [
   {
    "role": "System Manager"
+  },
+  {
+   "role": "HR Manager"
   }
  ]
 }

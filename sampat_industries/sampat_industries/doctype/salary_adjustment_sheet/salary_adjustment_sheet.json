@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:SAL-ADJ-{month}-{year}",
  "creation": "2024-03-05 18:31:11.131037",
  "default_view": "List",
  "doctype": "DocType",
@@ -8,7 +9,13 @@
  "engine": "InnoDB",
  "field_order": [
   "month",
-  "details"
+  "year",
+  "column_break_nstv4",
+  "month_start_date",
+  "month_end_date",
+  "section_break_lkg2p",
+  "details",
+  "amended_from"
  ],
  "fields": [
   {
@@ -24,14 +31,52 @@
    "fieldtype": "Table",
    "label": "Details",
    "options": "Salary Adjustment"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Salary Adjustment Sheet",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_nstv4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "month_start_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Month Start Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "month_end_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Month End Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "year",
+   "fieldtype": "Data",
+   "label": "Year"
+  },
+  {
+   "fieldname": "section_break_lkg2p",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2024-03-05 19:20:46.705933",
+ "modified": "2024-04-05 18:34:27.615642",
  "modified_by": "Administrator",
  "module": "Sampat Industries",
  "name": "Salary Adjustment Sheet",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

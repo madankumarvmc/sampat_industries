@@ -1,0 +1,96 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-04-08 18:05:46.279310",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employee",
+  "employee_name",
+  "gross_pay",
+  "deductions",
+  "additions",
+  "net_pay",
+  "paid",
+  "hold"
+ ],
+ "fields": [
+  {
+   "columns": 1,
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "columns": 2,
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Read Only",
+   "in_list_view": 1,
+   "label": "Employee Name"
+  },
+  {
+   "columns": 1,
+   "fieldname": "gross_pay",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Gross Pay",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "deductions",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Deductions",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "additions",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Additions",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "net_pay",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Net Pay",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "default": "1",
+   "fieldname": "paid",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Paid"
+  },
+  {
+   "columns": 1,
+   "default": "0",
+   "fieldname": "hold",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Hold"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-04-08 19:18:15.034012",
+ "modified_by": "Administrator",
+ "module": "Sampat Industries",
+ "name": "Salary Payment Sheet Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
